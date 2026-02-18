@@ -2535,7 +2535,7 @@ const supabaseUrl = 'https://whapstcqrktvfmxtinnp.supabase.co';
 const supabaseKey = 'sb_publishable_rYfR9RPznM-EtcjXaEe-Gw_rAbNX-Kr';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhW4mabmfFGeIJE9AIckUyY7bILANKmb95Cb5Ja4ZHAFZSpq-_xO5k2Lb2dQ6kM7-gbA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjmZnWXls4PEJ0kTDRXDAzimAvlnGX_11xR06Kx5PCPa6qooSEZUKcPd9CkP8qdbCI7w/exec";
 
 // ==========================================
 // 3. متغيرات الحالة
@@ -3020,19 +3020,25 @@ window.logoutAdmin = async function() {
     showToast("خطأ في تسجيل الخروج", "error");
   }
 };
-let isWelcomeShown = false; // هذا المتغير سيمنع التكرار
+// 1. تعريف المتغير في مكان عام (خارج الدالة) لضمان حفظ حالته
+let isWelcomeShown = false; 
+
 function updateUIForLoggedInUser() {
+  // إضافة كلاس وضع المدير للجسم لتمكين التنسيقات الخاصة
   document.body.classList.add('admin-mode');
   
+  // 2. التحقق من وجود زر الإضافة (FAB) ومنع تكراره
   if (!document.getElementById('fabAddNews')) {
     const fab = document.createElement('button');
     fab.id = 'fabAddNews';
     fab.innerHTML = '<i class="fas fa-plus"></i>';
     fab.setAttribute('aria-label', 'إضافة خبر جديد');
+    
+    // التنسيق الخاص بالزر (CSS)
     fab.style.cssText = `
       position: fixed;
       bottom: 30px;
-      left: 100px;
+      left: 30px;
       width: 60px;
       height: 60px;
       background: linear-gradient(135deg, #06b6d4, #22d3ee);
@@ -3048,40 +3054,43 @@ function updateUIForLoggedInUser() {
       box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
       transition: all 0.3s ease;
     `;
+    
+    // أحداث الزر
     fab.onclick = () => {
-      document.getElementById('adminModal').classList.add('active');
-      document.getElementById('newsDate').valueAsDate = new Date();
-      document.getElementById('newsTitle').focus();
+      const modal = document.getElementById('adminModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.getElementById('newsDate').valueAsDate = new Date();
+        document.getElementById('newsTitle').focus();
+      }
     };
+    
     fab.onmouseenter = () => fab.style.transform = 'scale(1.1) rotate(90deg)';
     fab.onmouseleave = () => fab.style.transform = 'scale(1) rotate(0deg)';
+    
     document.body.appendChild(fab);
   }
   
+  // 3. تنظيف واجهة المستخدم من عناصر تسجيل الدخول
   const trigger = document.getElementById('adminTriggerBtn');
   if (trigger) trigger.remove();
-  const loginModal = document.getElementById('loginModal');
-  if (loginModal) loginModal.remove();
   
-  showToast(`مرحباً أيها المدير: ${currentUser.email.split('@')[0]}`);
-}
-
-// مراقبة حالة تسجيل الدخول
-supabase.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN' && session) {
-    currentUser = session.user;
-    updateUIForLoggedInUser();
-  } else if (event === 'SIGNED_OUT') {
-    currentUser = null;
-    document.body.classList.remove('admin-mode');
-    const existingFab = document.getElementById('fabAddNews');
-    if (existingFab) existingFab.remove();
-    
-    if (!document.getElementById('adminTriggerBtn')) {
-      createHiddenAdminButton();
-    }
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) {
+    // إغلاق المودال بسلاسة ثم حذفه
+    loginModal.style.opacity = '0';
+    setTimeout(() => loginModal.remove(), 300);
   }
-});
+  
+  // 4. الحل النهائي لمنع تكرار رسالة "مرحباً أيها المدير"
+  if (!isWelcomeShown && currentUser) {
+    const adminName = currentUser.email.split('@')[0];
+    showToast(`✨ مرحباً أيها المدير: ${adminName}`, "success");
+    
+    // تفعيل القفل لمنع الظهور مرة أخرى في نفس الجلسة
+    isWelcomeShown = true; 
+  }
+}
 
 // ==========================================
 // 8. إغلاق النافذة وإعادة التعيين
