@@ -1587,8 +1587,6 @@ backdrop-filter: blur(10px);
     }
   }
 
-  /* ===== Mobile Menu ===== */
-  /* ===== تطوير قسم القائمة للجوال (تفاعلي وجمالي) ===== */
 
 .mobile-menu-btn {
     display: none;
@@ -1617,24 +1615,24 @@ backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    z-index: 2001; /* أعلى من كل شيء */
-    padding: 80px 0 40px 0; /* مسافات داخلية متوازنة */
-    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* حركة انسيابية فخمة */
+    z-index: 2001; 
+    padding: 80px 0 40px 0; 
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); 
     border-left: 3px solid var(--gov-gold);
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* ضمان الترتيب العمودي */
+    flex-direction: column; 
     overflow-y: auto;
 }
 
 .mobile-menu.active {
-    right: 0; /* ظهور القائمة */
+    right: 0; 
 }
 
-/* تنسيق الحاوية الداخلية للروابط */
+
 .mobile-menu nav {
     display: flex;
-    flex-direction: column; /* ترتيب الروابط تحت بعضها */
+    flex-direction: column; 
     width: 100%;
     padding: 0 20px;
 }
@@ -1651,17 +1649,17 @@ backdrop-filter: blur(10px);
     margin-bottom: 8px;
     border-bottom: 1px solid rgba(6, 182, 212, 0.05);
     transition: all 0.3s ease;
-    opacity: 0; /* مخفية في البداية لعمل حركة الظهور */
+    opacity: 0; 
     transform: translateX(20px);
 }
 
-/* حركة ظهور الروابط واحداً تلو الآخر عند تفعيل القائمة */
+
 .mobile-menu.active a {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* تأخير زمني بسيط لكل رابط ليعطي تأثير تتابع (Stagger Effect) */
+
 .mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
 .mobile-menu.active a:nth-child(2) { transition-delay: 0.2s; }
 .mobile-menu.active a:nth-child(3) { transition-delay: 0.3s; }
@@ -1673,7 +1671,7 @@ backdrop-filter: blur(10px);
 .mobile-menu a:hover {
     color: var(--gov-gold);
     background: rgba(6, 182, 212, 0.08);
-    padding-right: 30px; /* حركة اندفاع لليمين عند اللمس */
+    padding-right: 30px; 
 }
 
 .close-menu {
@@ -1717,12 +1715,12 @@ backdrop-filter: blur(10px);
     pointer-events: all;
 }
 
-/* تحسين شكل الروابط بإضافة أيقونة بسيطة تظهر عند الهوفر */
+
 .mobile-menu a::after {
-    content: '\f104'; /* أيقونة سهم */
+    content: '\f104'; 
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
-    margin-right: auto; /* دفع السهم لليسار */
+    margin-right: auto; 
     opacity: 0;
     transition: 0.3s;
 }
@@ -2358,7 +2356,7 @@ backdrop-filter: blur(10px);
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.51 AM (1).jpeg" alt="شريك"></div>
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.51 AM (2).jpeg" alt="شريك"></div>
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.51 AM (3).jpeg" alt="شريك"></div>
-    <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.51 AM.jpeg" alt="شريك"></div>
+   
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-15 at 12.59.52 PM.jpeg" alt="شريك"></div>
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.52 AM (2).jpeg" alt="شريك"></div>
     <div class="partner-card"><img src="img\WhatsApp Image 2026-02-12 at 7.31.52 AM (3).jpeg" alt="شريك"></div>
