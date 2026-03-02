@@ -1588,7 +1588,9 @@ backdrop-filter: blur(10px);
   }
 
   /* ===== Mobile Menu ===== */
-  .mobile-menu-btn {
+  /* ===== تطوير قسم القائمة للجوال (تفاعلي وجمالي) ===== */
+
+.mobile-menu-btn {
     display: none;
     background: none;
     border: none;
@@ -1598,93 +1600,137 @@ backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: var(--radius-sm);
     transition: all var(--transition-normal);
-  }
+}
 
-  .mobile-menu-btn:hover {
+.mobile-menu-btn:hover {
     background: rgba(6, 182, 212, 0.1);
     color: var(--gov-gold);
-  }
+}
 
-  .mobile-menu {
+.mobile-menu {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
+    right: -100%; /* البداية خارج الشاشة */
+    width: 85%;
+    max-width: 320px;
     height: 100vh;
     background: rgba(255, 255, 255, 0.98);
-    -webkit-backdrop-filter: blur(10px); /* أضف هذا السطر لمتصفح سفاري */
-backdrop-filter: blur(10px);
     backdrop-filter: blur(20px);
-    z-index: 1001;
-    padding: 100px 25px;
-    transition: right var(--transition-slow);
-    border-left: 2px solid var(--gov-gold);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 2001; /* أعلى من كل شيء */
+    padding: 80px 0 40px 0; /* مسافات داخلية متوازنة */
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); /* حركة انسيابية فخمة */
+    border-left: 3px solid var(--gov-gold);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* ضمان الترتيب العمودي */
     overflow-y: auto;
-  }
+}
 
-  .mobile-menu.active {
-    right: 0;
-  }
+.mobile-menu.active {
+    right: 0; /* ظهور القائمة */
+}
 
-  .mobile-menu a {
-    display: block;
-    padding: 18px;
+/* تنسيق الحاوية الداخلية للروابط */
+.mobile-menu nav {
+    display: flex;
+    flex-direction: column; /* ترتيب الروابط تحت بعضها */
+    width: 100%;
+    padding: 0 20px;
+}
+
+.mobile-menu a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
     color: var(--text-dark);
     text-decoration: none;
-    font-size: 18px;
-    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
-    transition: all var(--transition-normal);
+    font-size: 17px;
     font-weight: 600;
-  }
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+    transition: all 0.3s ease;
+    opacity: 0; /* مخفية في البداية لعمل حركة الظهور */
+    transform: translateX(20px);
+}
 
-  .mobile-menu a:hover {
+/* حركة ظهور الروابط واحداً تلو الآخر عند تفعيل القائمة */
+.mobile-menu.active a {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* تأخير زمني بسيط لكل رابط ليعطي تأثير تتابع (Stagger Effect) */
+.mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.active a:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu.active a:nth-child(3) { transition-delay: 0.3s; }
+.mobile-menu.active a:nth-child(4) { transition-delay: 0.4s; }
+.mobile-menu.active a:nth-child(5) { transition-delay: 0.5s; }
+.mobile-menu.active a:nth-child(6) { transition-delay: 0.6s; }
+.mobile-menu.active a:nth-child(7) { transition-delay: 0.7s; }
+
+.mobile-menu a:hover {
     color: var(--gov-gold);
-    padding-right: 35px;
-    background: rgba(6, 182, 212, 0.05);
-  }
+    background: rgba(6, 182, 212, 0.08);
+    padding-right: 30px; /* حركة اندفاع لليمين عند اللمس */
+}
 
-  .close-menu {
+.close-menu {
     position: absolute;
-    top: 25px;
-    left: 25px;
-    background: none;
+    top: 20px;
+    left: 20px;
+    background: rgba(6, 182, 212, 0.1);
     border: none;
     color: var(--gov-gold);
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all var(--transition-normal);
-  }
+    transition: all 0.4s ease;
+}
 
-  .close-menu:hover {
-    background: rgba(6, 182, 212, 0.1);
-    transform: rotate(90deg);
-  }
+.close-menu:hover {
+    background: var(--gov-gold);
+    color: white;
+    transform: rotate(180deg);
+}
 
-  .overlay {
+.overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.5);
-    -webkit-backdrop-filter: blur(10px); /* أضف هذا السطر لمتصفح سفاري */
-backdrop-filter: blur(10px);
-    backdrop-filter: blur(5px);
-    z-index: 1000;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2000;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--transition-normal);
-  }
+    transition: all 0.4s ease;
+}
 
-  .overlay.active {
+.overlay.active {
     opacity: 1;
     pointer-events: all;
-  }
+}
 
+/* تحسين شكل الروابط بإضافة أيقونة بسيطة تظهر عند الهوفر */
+.mobile-menu a::after {
+    content: '\f104'; /* أيقونة سهم */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: auto; /* دفع السهم لليسار */
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.mobile-menu a:hover::after {
+    opacity: 1;
+    transform: translateX(-5px);
+}
   /* ===== Loading Screen ===== */
   .loader {
     position: fixed;
@@ -2027,12 +2073,12 @@ backdrop-filter: blur(10px);
     <i class="fas fa-times"></i>
   </button>
   <nav>
-    <a href="#home" onclick="toggleMenu()">الرئيسية</a> <br>
-    <a href="#services" onclick="toggleMenu()">خدماتنا</a><br>
-    <a href="#products" onclick="toggleMenu()">منتجاتنا</a><br>
-    <a href="#partners" onclick="toggleMenu()">شركاؤنا</a><br>
-    <a href="#news" onclick="toggleMenu()">آخر الأخبار</a><br>
-    <a href="#stats" onclick="toggleMenu()">إنجازاتنا</a><br>
+    <a href="#home" onclick="toggleMenu()">الرئيسية</a>
+    <a href="#services" onclick="toggleMenu()">خدماتنا</a>
+    <a href="#products" onclick="toggleMenu()">منتجاتنا</a>
+    <a href="#partners" onclick="toggleMenu()">شركاؤنا</a>
+    <a href="#news" onclick="toggleMenu()">آخر الأخبار</a>
+    <a href="#stats" onclick="toggleMenu()">إنجازاتنا</a>
     <a href="#contact" onclick="toggleMenu()">تواصل معنا</a>
   </nav>
 </div>
