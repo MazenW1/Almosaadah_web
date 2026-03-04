@@ -1767,10 +1767,140 @@ backdrop-filter: blur(10px);
   }
 
   /* ===== Products Section ===== */
-  .products-section {
-    padding: 80px 5%;
-    background: rgba(6, 182, 212, 0.02);
-  }
+  /* تنسيق قسم المنتجات النوعيّة - نسخة ألوان الهوية الموحدة */
+.products-section {
+    padding: 100px 10%;
+    background: rgba(6, 182, 212, 0.02); /* خلفية بيضاء صافية */
+    font-family: 'Tajawal', sans-serif;
+    position: relative;
+    overflow: hidden; /* لضمان بقاء التدرجات داخل القسم */
+}
+
+/* إضافة تدرج خلفي خفيف جداً خلف البطاقات */
+.products-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05), transparent 70%);
+    pointer-events: none;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    color: var(--gov-gold); /* اللون السماوي الرئيسي للموقع */
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.section-header p {
+    color: var(--gov-muted); /* رمادي مزرق هادئ من الـ variables */
+    font-size: 1.2rem;
+}
+
+/* شبكة المنتجات */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+
+.product-item {
+    /* تطبيق تدرج "تأهيل برو" على جميع البطاقات */
+    background: linear-gradient(145deg, #ffffff, var(--bg-cyan-50));
+    border: 2px solid var(--gov-gold); /* إطار سماوي موحد */
+    border-radius: var(--radius-xl); /* استخدام زوايا الموقع الموحدة */
+    padding: 35px;
+    transition: all var(--transition-slow);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    /* ظل خفيف وجميل */
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.1);
+}
+
+.product-item:hover {
+    transform: translateY(-12px) scale(1.02);
+    /* تفتيح الخلفية قليلاً عند الـ Hover */
+    background: linear-gradient(145deg, #ffffff, #ffffff);
+    /* زيادة الظل ليعطي إيحاءً بالارتفاع */
+    box-shadow: 0 20px 50px rgba(6, 182, 212, 0.2);
+    border-color: var(--gov-dark); /* جعل الإطار أدكن قليلاً */
+}
+
+.product-item h3 {
+    color: var(--gov-dark); /* اللون الداكن للنصوص */
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(6, 182, 212, 0.15); /* خط فاصل خفيف */
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.product-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    flex-grow: 1;
+}
+
+.product-item ul li {
+    position: relative;
+    padding-right: 28px;
+    margin-bottom: 12px;
+    color: var(--gov-muted);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.product-item ul li::before {
+    content: "✓";
+    position: absolute;
+    right: 0;
+    color: var(--gov-navy); /* أزرق داكن للنص */
+    font-weight: bold;
+}
+
+.benefit {
+    background: rgba(6, 182, 212, 0.1); /* خلفية سماوية خفيفة جداً */
+    color: var(--gov-navy); /* أزرق داكن للنص */
+    padding: 15px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    margin-top: auto;
+    border-right: 4px solid var(--gov-gold);
+}
+
+/* إزالة التميز الخاص بتأهيل برو لأننا وحدنا التنسيق */
+.product-item.highlight {
+    background: linear-gradient(145deg, #ffffff, var(--bg-cyan-50));
+    border: 2px solid var(--gov-gold);
+}
+
+.product-item.highlight h3 {
+    color: var(--gov-dark);
+}
+
+/* إخفاء الخطوط الفاصلة HR */
+.products-grid hr {
+    display: none;
+}
+
+/* تحسين العرض على الجوال */
+@media (max-width: 768px) {
+    .products-section {
+        padding: 60px 5%;
+    }
+    .section-header h2 {
+        font-size: 2rem;
+    }
+}
 
   .products-box {
     max-width: 900px;
@@ -2306,15 +2436,55 @@ backdrop-filter: blur(10px);
   <section class="products-section" id="products" aria-labelledby="productsTitle">
     <div class="section-header" data-aos="fade-up">
       <h2 id="productsTitle">منتجاتنا النوعيّة</h2>
-      <p>أدوات وحلول احترافية لضمان الامتثال والجدارة</p>
+      <p>حلول متقدمة ومبتكرة… لتأمين الاستدامة وتعظيم التأثير</p>
     </div>
 
-    <div class="products-box" data-aos="fade-up">
-      <ul>
-        <li><b>صياغة التقارير الختامية:</b> إعداد التقارير وفق أدق اشتراطات صندوق دعم الجمعيات لضمان الاعتماد.</li>
-        <li><b>هندسة وتنفيذ المشاريع:</b> تحويل الخطط إلى واقع ملموس يحقق الأثر التنموي المطلوب.</li>
-        <li><b>منصة البرامج الإلكترونية:</b> تنفيذ النظام التقني المتكامل لإدارة مشاريعكم وبرامجكم بكفاءة.</li>
-      </ul>
+    <div class="products-grid" data-aos="fade-up">
+      <div class="product-item">
+        <h3>1️⃣ منتج عون</h3>
+        <p><b>الهدف:</b> تقديم دعم فوري واحترافي للجهات الخيرية والجمعيات.</p>
+        <ul>
+          <li>استشارات مباشرة وسريعة لحل التحديات الإدارية والفنية.</li>
+          <li>متابعة وتنفيذ مهام محددة لضمان استمرارية العمل بكفاءة.</li>
+          <li>تقارير قصيرة توضح الإنجاز والنتائج بشكل واضح.</li>
+        </ul>
+        <p class="benefit"><b>الفائدة:</b> يقلل وقت الجهد ويوفر الخبرة العملية دون تعقيد.</p>
+      </div>
+
+      <hr>
+
+      <div class="product-item">
+        <h3>2️⃣ بكج المساعدة الإدارية</h3>
+        <p><b>الهدف:</b> بناء أساس إداري متكامل للجمعيات والمؤسسات.</p>
+        <ul>
+          <li>إعداد الخطط الاستراتيجية والتشغيلية.</li>
+          <li>تجهيز ملفات الحوكمة والسياسات الداخلية.</li>
+          <li>تصميم المشاريع التنموية وفق احتياجات المجتمع.</li>
+          <li>تسجيل ورفع المشاريع للمانحين بشكل احترافي.</li>
+        </ul>
+        <p class="benefit"><b>الفائدة:</b> يضمن جاهزية الجمعية للتمويل ورفع كفاءة العمل الإداري.</p>
+      </div>
+
+      <hr>
+
+      <div class="product-item">
+        <h3>3️⃣ منتج الجهات المانحة</h3>
+        <p><b>الهدف:</b> تعزيز فرص الحصول على دعم وتمويل من المانحين.</p>
+        <ul>
+          <li>دراسة متطلبات الصناديق والمانحين.</li>
+          <li>صياغة مشاريع ومبادرات تلبي معايير التمويل.</li>
+          <li>إعداد المؤشرات وتقارير قياس الأثر لضمان قبول التمويل.</li>
+        </ul>
+        <p class="benefit"><b>الفائدة:</b> يسهل الوصول للتمويل بسرعة ويزيد من ثقة المانحين.</p>
+      </div>
+
+      <hr>
+
+      <div class="product-item highlight">
+        <h3>🚀 تأهيل برو</h3>
+        <p>برنامج احترافي يُعنى برفع جاهزية الجمعيات الأهلية وفق معايير دقيقة ومعتمدة، لبناء مشاريع قوية، وتعزيز فرص المنافسة، وتحقيق اعتماد وثقة الجهات المانحة.</p>
+        <p><b>الهدف:</b> منهجية احترافية لرفع جاهزية الجمعيات للمنافسة بثقة وتحقيق التميز.</p>
+      </div>
     </div>
   </section>
 
@@ -2421,9 +2591,15 @@ backdrop-filter: blur(10px);
       <div class="contact-info" data-aos="fade-right">
         <h3 id="contactTitle">لنبدأ التعاون اليوم</h3>
         <p>
-          نحن هنا في الطائف لمساعدتك في تحقيق أهدافك الإدارية. 
-          تواصل معنا الآن واحصل على استشارة مجانية 
-          واكتشف كيف يمكننا تطوير أداء مؤسستك
+          المساعدة الإدارية | شريكك نحو التميز المؤسسي 🤝
+
+لنبدأ التعاون اليوم…
+نحن هنا لمساعدتك على تحقيق أهدافك الإدارية باحترافية عالية.
+<br>
+
+✨ استشارة مجانية<br>
+✨ حلول تطويرية عملية<br>
+✨ رفع كفاءة وأداء جمعيتك
         </p>
         
         <div class="contact-details">
@@ -2439,7 +2615,8 @@ backdrop-filter: blur(10px);
             <i class="fas fa-phone" aria-hidden="true"></i>
             <div>
               <strong>الهاتف</strong>
-              <span dir="ltr">+966 58 017 1160</span>
+              <span dir="ltr">+966 58 017 1160</span><br>
+              <span dir="ltr">+966 59 170 0131</span>
             </div>
           </div>
           
@@ -2525,7 +2702,7 @@ backdrop-filter: blur(10px);
          loading="lazy"
          onerror="this.src='https://via.placeholder.com/100x100/0891b2/ffffff?text=Logo';this.onerror=null;">
     
-    <p>المساعدة الإدارية - شريكك الموثوق في النجاح الإداري بالطائف</p>
+    <p>المساعدة الادارية .. شراكة فاعلة … وأثر مستدام</p>
     
     <div class="social-links">
       <a href="https://x.com/SWalttwyr" class="x-color" aria-label="X (تويتر)" target="_blank" rel="noopener noreferrer">
