@@ -2166,6 +2166,78 @@ backdrop-filter: blur(10px);
       background: white;
     }
   }
+  .clickable-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.clickable-card:hover {
+    background: rgba(6, 182, 212, 0.05); /* تظليل بسيط عند المرور بالماوس */
+    border-color: var(--gov-gold);
+    transform: translateY(-5px);
+}
+/* تنسيق بطاقة المنتج لتصبح تفاعلية */
+.clickable-card {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden; /* لمنع خروج التأثير عن حدود البطاقة */
+}
+
+/* إضافة طبقة تظهر عند التمرير */
+.clickable-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 145, 178, 0.1); /* لون سماوي خفيف جداً */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* إضافة نص "طلب المنتج" */
+.clickable-card::after {
+    content: 'طلب المنتج ↗';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--gov-gold, #c5a059); /* استخدم لونك الذهبي */
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* التأثيرات عند مرور الماوس (Hover) */
+.clickable-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gov-gold, #c5a059);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.clickable-card:hover::before {
+    opacity: 1;
+}
+
+.clickable-card:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* تمييز المنتج المختار (تأهيل برو) */
+.clickable-card.highlight:hover {
+    background: #fff;
+}
 </style>
 </head>
 
@@ -2433,60 +2505,64 @@ backdrop-filter: blur(10px);
     </div>
   </section>
 
-  <section class="products-section" id="products" aria-labelledby="productsTitle">
-    <div class="section-header" data-aos="fade-up">
-      <h2 id="productsTitle">منتجاتنا النوعيّة</h2>
-      <p>حلول متقدمة ومبتكرة… لتأمين الاستدامة وتعظيم التأثير</p>
-    </div>
+ 
+    <section class="products-section" id="products" aria-labelledby="productsTitle">
+  <div class="section-header" data-aos="fade-up">
+    <h2 id="productsTitle">منتجاتنا النوعيّة</h2>
+    <p>حلول متقدمة ومبتكرة… لتأمين الاستدامة وتعظيم التأثير</p>
+  </div>
 
-    <div class="products-grid" data-aos="fade-up">
-      <div class="product-item">
-        <h3>1️⃣ منتج عون</h3>
-        <p><b>الهدف:</b> تقديم دعم فوري واحترافي للجهات الخيرية والجمعيات.</p>
-        <ul>
-          <li>استشارات مباشرة وسريعة لحل التحديات الإدارية والفنية.</li>
-          <li>متابعة وتنفيذ مهام محددة لضمان استمرارية العمل بكفاءة.</li>
-          <li>تقارير قصيرة توضح الإنجاز والنتائج بشكل واضح.</li>
-        </ul>
-        <p class="benefit"><b>الفائدة:</b> يقلل وقت الجهد ويوفر الخبرة العملية دون تعقيد.</p>
-      </div>
+  <div class="products-grid" data-aos="fade-up">
+    
+    <article class="product-item clickable-card" data-aos="fade-up" onclick="selectService('منتج عون')" role="button" tabindex="0" aria-label="منتج عون">
+      <h3>1️⃣ منتج عون</h3>
+      <p><b>الهدف:</b> تقديم دعم فوري واحترافي للجهات الخيرية والجمعيات.</p>
+      <ul>
+        <li>استشارات مباشرة وسريعة لحل التحديات الإدارية والفنية.</li>
+        <li>متابعة وتنفيذ مهام محددة لضمان استمرارية العمل بكفاءة.</li>
+        <li>تقارير قصيرة توضح الإنجاز والنتائج بشكل واضح.</li>
+      </ul>
+      <p class="benefit"><b>الفائدة:</b> يقلل وقت الجهد ويوفر الخبرة العملية دون تعقيد.</p>
+    </article>
 
-      <hr>
+    <hr>
 
-      <div class="product-item">
-        <h3>2️⃣ بكج المساعدة الإدارية</h3>
-        <p><b>الهدف:</b> بناء أساس إداري متكامل للجمعيات والمؤسسات.</p>
-        <ul>
-          <li>إعداد الخطط الاستراتيجية والتشغيلية.</li>
-          <li>تجهيز ملفات الحوكمة والسياسات الداخلية.</li>
-          <li>تصميم المشاريع التنموية وفق احتياجات المجتمع.</li>
-          <li>تسجيل ورفع المشاريع للمانحين بشكل احترافي.</li>
-        </ul>
-        <p class="benefit"><b>الفائدة:</b> يضمن جاهزية الجمعية للتمويل ورفع كفاءة العمل الإداري.</p>
-      </div>
+    <article class="product-item clickable-card" data-aos="fade-up" onclick="selectService('بكج المساعدة الإدارية')" role="button" tabindex="0" aria-label="بكج المساعدة الإدارية">
+      <h3>2️⃣ بكج المساعدة الإدارية</h3>
+      <p><b>الهدف:</b> بناء أساس إداري متكامل للجمعيات والمؤسسات.</p>
+      <ul>
+        <li>إعداد الخطط الاستراتيجية والتشغيلية.</li>
+        <li>تجهيز ملفات الحوكمة والسياسات الداخلية.</li>
+        <li>تصميم المشاريع التنموية وفق احتياجات المجتمع.</li>
+        <li>تسجيل ورفع المشاريع للمانحين بشكل احترافي.</li>
+      </ul>
+      <p class="benefit"><b>الفائدة:</b> يضمن جاهزية الجمعية للتمويل ورفع كفاءة العمل الإداري.</p>
+    </article>
 
-      <hr>
+    <hr>
 
-      <div class="product-item">
-        <h3>3️⃣ منتج الجهات المانحة</h3>
-        <p><b>الهدف:</b> تعزيز فرص الحصول على دعم وتمويل من المانحين.</p>
-        <ul>
-          <li>دراسة متطلبات الصناديق والمانحين.</li>
-          <li>صياغة مشاريع ومبادرات تلبي معايير التمويل.</li>
-          <li>إعداد المؤشرات وتقارير قياس الأثر لضمان قبول التمويل.</li>
-        </ul>
-        <p class="benefit"><b>الفائدة:</b> يسهل الوصول للتمويل بسرعة ويزيد من ثقة المانحين.</p>
-      </div>
+    <article class="product-item clickable-card" data-aos="fade-up" onclick="selectService('منتج الجهات المانحة')" role="button" tabindex="0" aria-label="منتج الجهات المانحة">
+      <h3>3️⃣ منتج الجهات المانحة</h3>
+      <p><b>الهدف:</b> تعزيز فرص الحصول على دعم وتمويل من المانحين.</p>
+      <ul>
+        <li>دراسة متطلبات الصناديق والمانحين.</li>
+        <li>صياغة مشاريع ومبادرات تلبي معايير التمويل.</li>
+        <li>إعداد المؤشرات وتقارير قياس الأثر لضمان قبول التمويل.</li>
+      </ul>
+      <p class="benefit"><b>الفائدة:</b> يسهل الوصول للتمويل بسرعة ويزيد من ثقة المانحين.</p>
+    </article>
 
-      <hr>
+    <hr>
 
-      <div class="product-item highlight">
-        <h3>🚀 تأهيل برو</h3>
-        <p>برنامج احترافي يُعنى برفع جاهزية الجمعيات الأهلية وفق معايير دقيقة ومعتمدة، لبناء مشاريع قوية، وتعزيز فرص المنافسة، وتحقيق اعتماد وثقة الجهات المانحة.</p>
-        <p><b>الهدف:</b> منهجية احترافية لرفع جاهزية الجمعيات للمنافسة بثقة وتحقيق التميز.</p>
-      </div>
-    </div>
-  </section>
+    <article class="product-item highlight clickable-card" data-aos="fade-up" onclick="selectService('تأهيل برو')" role="button" tabindex="0" aria-label="تأهيل برو">
+      <h3>🚀 تأهيل برو</h3>
+      <p>برنامج احترافي يُعنى برفع جاهزية الجمعيات الأهلية وفق معايير دقيقة ومعتمدة، لبناء مشاريع قوية، وتعزيز فرص المنافسة، وتحقيق اعتماد وثقة الجهات المانحة.</p>
+      <p><b>الهدف:</b> منهجية احترافية لرفع جاهزية الجمعيات للمنافسة بثقة وتحقيق التميز.</p>
+      <p class="benefit"><b>الفائدة:</b> استدامة مؤسسية واحترافية عالية.</p>
+    </article>
+
+  </div>
+</section>
 
   <!-- Partners Section -->
   <section class="partners-section" id="partners" aria-labelledby="partnersTitle">
@@ -2651,25 +2727,31 @@ backdrop-filter: blur(10px);
           </div>
           
           <div class="form-group">
-            <label for="service">
-              <i class="fas fa-hand-pointer" aria-hidden="true"></i>
-              الخدمة المطلوبة
-            </label>
-            <select id="service" name="service" class="form-control" required>
-              <option value="" disabled selected>اختر الخدمة المناسبة...</option>
-              <option value="تجهيز ملف الحوكمة">تجهيز ملف الحوكمة</option>
-              <option value="إعداد طلب دعم الصندوق">إعداد طلب دعم الصندوق</option>
-              <option value="التسجيل في منصات التبرع">التسجيل في منصات التبرع</option>
-              <option value="تصميم المشاريع التنموية">تصميم المشاريع التنموية</option>
-              <option value="تأسيس الجمعيات والمؤسسات الأهلية">تأسيس الجمعيات والمؤسسات الأهلية</option>
-              <option value="تقديم المشاريع للمانحين">تقديم المشاريع للمانحين</option>
-              <option value="الخطط الاستراتيجية">الخطط الاستراتيجية</option>
-              <option value="بناء فرق العمل">بناء فرق العمل</option>
-              <option value="مراجعة القوائم المالية">مراجعة القوائم المالية</option>
-              <option value="الاستشارات الإدارية و الفنية">الاستشارات الإدارية و الفنية</option>
-              <option value="خدمة أخرى">خدمة أخرى</option>
-            </select>
-          </div>
+    <label for="service-select"><i class="fas fa-concierge-bell"></i> الخدمة أو المنتج المطلوب</label>
+    <select id="service-select" class="form-control" name="service" required>
+        <option value="">-- اختر من القائمة --</option>
+        
+        <optgroup label="خدماتنا الإدارية">
+            <option value="الخطط الاستراتيجية">بناء الخطط الاستراتيجية والتشغيلية</option>
+            <option value="تجهيز ملف الحوكمة">تجهيز ملف الحوكمة</option>
+            <option value="إعداد طلب دعم الصندوق">جاهزية صندوق دعم الجمعيات</option>
+            <option value="تصميم المشاريع التنموية">تصميم المشاريع التنموية</option>
+            <option value="تقديم المشاريع للمانحين">تقديم ورفع المشاريع للمانحين</option>
+            <option value="تأسيس الجمعيات والمؤسسات">تأسيس الجمعيات والمؤسسات الأهلية</option>
+            <option value="التسجيل في منصة إحسان">التسجيل والرفع في منصة إحسان</option>
+            <option value="بناء فرق العمل">بناء فرق العمل المؤسسي</option>
+            <option value="الاستشارات الإدارية و الفنية">الاستشارات الإدارية والفنية</option>
+            <option value="مراجعة القوائم المالية">مراجعة القوائم المالية</option>
+        </optgroup>
+
+        <optgroup label="منتجاتنا النوعية">
+            <option value="منتج عون">1️⃣ منتج عون</option>
+            <option value="بكج المساعدة الإدارية">2️⃣ بكج المساعدة الإدارية</option>
+            <option value="منتج الجهات المانحة">3️⃣ منتج الجهات المانحة</option>
+            <option value="تأهيل برو">🚀 برنامج تأهيل برو</option>
+        </optgroup>
+    </select>
+</div>
           
           <div class="form-group">
             <label for="phone">رقم الجوال</label>
@@ -3334,25 +3416,36 @@ window.closeAdminModal = function() {
 // ==========================================
 // 9. اختيار الخدمة والتمرير للنموذج
 // ==========================================
-window.selectService = function(serviceValue) {
-  const contactSection = document.getElementById("contact");
-  const select = document.getElementById("service");
 
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+window.selectService = function(itemName) {
+    // 1. الوصول للحقل وقسم التواصل باستخدام الـ IDs الموجودة في كودك
+    const serviceSelect = document.getElementById('service-select');
+    const contactSection = document.getElementById('contact'); 
 
-  setTimeout(() => {
-    if (select) {
-      select.value = serviceValue;
-      select.classList.add('highlight-select');
-      select.focus();
-      setTimeout(() => {
-        select.classList.remove('highlight-select');
-      }, 2000);
+    if (serviceSelect) {
+        // 2. اختيار القيمة المطابقة لاسم المنتج/الخدمة
+        serviceSelect.value = itemName;
+
+        // 3. النزول بسلاسة لقسم التواصل
+        if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 4. تمييز الحقل بصرياً (فوكس وتغيير لون)
+        serviceSelect.focus();
+        serviceSelect.style.border = "2px solid #06b6d4"; 
+        serviceSelect.style.backgroundColor = "#ecfeff"; 
+        
+        // إعادة الشكل الطبيعي بعد 2 ثانية
+        setTimeout(() => {
+            serviceSelect.style.border = "";
+            serviceSelect.style.backgroundColor = "";
+        }, 2000);
     }
-  }, 800);
 };
+
+
+ 
 
 // ==========================================
 // 10. نموذج التواصل مع التحقق
