@@ -1,8 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "sa.almosaadah.twa",
-    "sha256_cert_fingerprints": [" 53:BB:A3:7C:13:8C:EA:7B:26:D1:6F:37:78:74:01:B4:F3:46:18:EE:41:AD:E3:19:C2:9B:45:79:F7:DC:BE:03"]
-  }
-}]
