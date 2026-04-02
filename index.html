@@ -2517,27 +2517,33 @@ backdrop-filter: blur(10px);
   <div class="products-grid" data-aos="fade-up">
     
     <article class="product-item clickable-card" data-aos="fade-up" onclick="selectService('منتج عون')" role="button">
-      <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
-        <div style="flex: 1.2; min-width: 280px;">
-          <h3>1️⃣ منتج عون</h3>
-          <p>تقديم دعم فوري ومساندة احترافية سريعة للجمعيات الأهلية لتجاوز التحديات الإدارية والفنية اليومية بكفاءة عالية.</p>
-          <div style="margin-top: 25px; padding: 12px; border-right: 4px solid #0891b2; background: rgba(8, 145, 178, 0.05); border-radius: 4px;">
-            <p style="margin: 0; font-size: 0.95rem; color: #0891b2;">
-              <b><i class="fas fa-bullseye"></i> الهدف:</b> تقديم استشارات مباشرة وحلول عملية فورية لضمان استمرارية الأعمال.
-            </p>
-          </div>
-        </div>
-        <div style="flex: 1; min-width: 280px;">
-          <h4 style="color: #c5a059; margin-bottom: 15px;"><i class="fas fa-list-check"></i> مميزات المنتج:</h4>
-          <ul class="guarantees-list" style="list-style: none; padding: 0; display: grid; gap: 12px;">
-            <li><i class="fas fa-check-circle"></i> <span>استشارات مباشرة لحل التحديات الطارئة.</span></li>
-            <li><i class="fas fa-check-circle"></i> <span>متابعة تنفيذ المهام لضمان الجودة.</span></li>
-            <li><i class="fas fa-check-circle"></i> <span>تقارير إنجاز توضح النتائج المحققة.</span></li>
-            <li><i class="fas fa-check-circle"></i> <span>توفير الجهد والوقت عبر خبرات عملية.</span></li>
-          </ul>
-        </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+    <div style="flex: 1.2; min-width: 280px;">
+        
+      <h3 style="display: flex; justify-content: space-between; align-items: center;">
+          <span>1️⃣ منتج عون</span>
+          
+          <img src="img\الصندوق.png" alt="شعار صندوق دعم الجمعيات" style="height:70px; width: auto; object-fit: contain;">
+      </h3>
+      
+      <p>تقديم دعم فوري ومساندة احترافية سريعة للجمعيات الأهلية لتجاوز التحديات الإدارية والفنية اليومية بكفاءة عالية.</p>
+      <div style="margin-top: 25px; padding: 12px; border-right: 4px solid #0891b2; background: rgba(8, 145, 178, 0.05); border-radius: 4px;">
+        <p style="margin: 0; font-size: 0.95rem; color: #0891b2;">
+          <b><i class="fas fa-bullseye"></i> الهدف:</b> تقديم استشارات مباشرة وحلول عملية فورية لضمان استمرارية الأعمال.
+        </p>
       </div>
-    </article>
+    </div>
+    <div style="flex: 1; min-width: 280px;">
+      <h4 style="color: #c5a059; margin-bottom: 15px;"><i class="fas fa-list-check"></i> مميزات المنتج:</h4>
+      <ul class="guarantees-list" style="list-style: none; padding: 0; display: grid; gap: 12px;">
+        <li><i class="fas fa-check-circle"></i> <span>استشارات مباشرة لحل التحديات الطارئة.</span></li>
+        <li><i class="fas fa-check-circle"></i> <span>متابعة تنفيذ المهام لضمان الجودة.</span></li>
+        <li><i class="fas fa-check-circle"></i> <span>تقارير إنجاز توضح النتائج المحققة.</span></li>
+        <li><i class="fas fa-check-circle"></i> <span>توفير الجهد والوقت عبر خبرات عملية.</span></li>
+      </ul>
+    </div>
+  </div>
+</article>
 
     <hr>
 
@@ -2843,7 +2849,9 @@ backdrop-filter: blur(10px);
             <label for="message">الرسالة</label>
             <textarea id="message" name="message" class="form-control" placeholder="اكتب رسالتك هنا... نحن مستعدون لمساعدتك" maxlength="1000"></textarea>
           </div>
-          
+          <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+            <input type="text" name="_trap" tabindex="-1" autocomplete="off" value="">
+          </div>
           <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%;">
             <i class="fas fa-paper-plane" aria-hidden="true"></i>
             إرسال الرسالة
@@ -3028,26 +3036,65 @@ async function loadNewsRealTime(loadMore = false) {
       card.className = 'news-card';
       card.setAttribute('data-aos', 'fade-up');
       card.setAttribute('role', 'listitem');
-      card.innerHTML = `
-        <div class="news-image-container">
-          <span class="news-date-badge">${news.date}</span>
-          <img src="${news.image}" class="news-image" alt="${news.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/500x300/0891b2/ffffff?text=News'">
-        </div>
-        <div class="news-content">
-          <span class="news-category">${news.category}</span>
-          <h3 class="news-title">${news.title}</h3>
-          <p class="news-excerpt">${news.excerpt}</p>
-          <div class="news-footer">
-            <a href="${newsLink}" ${targetAttr} class="read-more">
-              اقرأ المزيد <i class="fas fa-arrow-left"></i>
-            </a>
-            <button class="news-action-btn admin-only" onclick="deleteNews('${news.id}')" title="حذف الخبر" aria-label="حذف الخبر">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-      `;
-      grid.appendChild(card);
+      const safeLink = (news.tweet && /^https?:\/\//i.test(news.tweet)) ? news.tweet : null;
+
+const imgContainer = document.createElement('div');
+imgContainer.className = 'news-image-container';
+
+const dateBadge = document.createElement('span');
+dateBadge.className = 'news-date-badge';
+dateBadge.textContent = news.date;
+
+const img = document.createElement('img');
+img.src = (news.image && /^https?:\/\//i.test(news.image)) ? news.image : '';
+img.className = 'news-image';
+img.alt = news.title;
+img.loading = 'lazy';
+img.onerror = function() { this.src = 'https://via.placeholder.com/500x300/0891b2/ffffff?text=News'; };
+
+imgContainer.appendChild(dateBadge);
+imgContainer.appendChild(img);
+
+const content = document.createElement('div');
+content.className = 'news-content';
+
+const category = document.createElement('span');
+category.className = 'news-category';
+category.textContent = news.category;
+
+const title = document.createElement('h3');
+title.className = 'news-title';
+title.textContent = news.title;
+
+const excerpt = document.createElement('p');
+excerpt.className = 'news-excerpt';
+excerpt.textContent = news.excerpt;
+
+const footer = document.createElement('div');
+footer.className = 'news-footer';
+
+const readMore = document.createElement('a');
+readMore.className = 'read-more';
+readMore.href = safeLink || '#';
+if (safeLink) { readMore.target = '_blank'; readMore.rel = 'noopener noreferrer'; }
+readMore.innerHTML = 'اقرأ المزيد <i class="fas fa-arrow-left"></i>';
+
+const deleteBtn = document.createElement('button');
+deleteBtn.className = 'news-action-btn admin-only';
+deleteBtn.title = 'حذف الخبر';
+deleteBtn.setAttribute('aria-label', 'حذف الخبر');
+deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+deleteBtn.addEventListener('click', () => deleteNews(news.id));
+
+footer.appendChild(readMore);
+footer.appendChild(deleteBtn);
+content.appendChild(category);
+content.appendChild(title);
+content.appendChild(excerpt);
+content.appendChild(footer);
+card.appendChild(imgContainer);
+card.appendChild(content);
+grid.appendChild(card);
     });
     
     lastVisible = newsData[newsData.length - 1]?.timestamp;
@@ -3358,8 +3405,16 @@ window.closeLoginModal = function() {
     if (password) password.value = '';
   }, 300);
 };
-
+const _loginAttempts = { count: 0, lockUntil: 0 };
+const LOGIN_MAX_ATTEMPTS = 5;
+const LOGIN_LOCKOUT_MS = 5 * 60 * 1000;
 window.submitAdminLogin = async function() {
+  const now = Date.now();
+if (_loginAttempts.lockUntil > now) {
+  const remaining = Math.ceil((_loginAttempts.lockUntil - now) / 60000);
+  showToast(`تم تجميد تسجيل الدخول. حاول بعد ${remaining} دقيقة`, "error");
+  return;
+}
   const emailInput = document.getElementById('adminEmail');
   const passwordInput = document.getElementById('adminPassword');
   const btn = document.getElementById('loginSubmitBtn');
@@ -3380,8 +3435,10 @@ window.submitAdminLogin = async function() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password
+      
     });
-
+_loginAttempts.count = 0;
+_loginAttempts.lockUntil = 0;
     if (error) throw error;
     
     currentUser = data.user;
@@ -3390,7 +3447,14 @@ window.submitAdminLogin = async function() {
     
   } catch (error) {
     console.error("Login error:", error);
-    showToast("بيانات الدخول غير صحيحة", "error");
+    _loginAttempts.count += 1;
+if (_loginAttempts.count >= LOGIN_MAX_ATTEMPTS) {
+  _loginAttempts.lockUntil = Date.now() + LOGIN_LOCKOUT_MS;
+  _loginAttempts.count = 0;
+  showToast("تم تجميد الحساب لمدة 5 دقائق بسبب المحاولات المتكررة", "error");
+} else {
+  showToast(`بيانات الدخول غير صحيحة. تبقى ${LOGIN_MAX_ATTEMPTS - _loginAttempts.count} محاولات`, "error");
+}
     btn.disabled = false;
     btn.innerHTML = originalText;
   }
@@ -3531,8 +3595,22 @@ window.selectService = function(itemName) {
 // ==========================================
 // 10. نموذج التواصل مع التحقق
 // ==========================================
+const _contactSubmits = { count: 0, lastReset: Date.now() };
+const CONTACT_MAX_PER_HOUR = 3;
 window.handleContactSubmit = function(e) {
   e.preventDefault();
+  const honeypot = e.target.querySelector('input[name="_trap"]');
+if (honeypot && honeypot.value) return;
+
+const now = Date.now();
+if (now - _contactSubmits.lastReset > 3600000) {
+  _contactSubmits.count = 0;
+  _contactSubmits.lastReset = now;
+}
+if (_contactSubmits.count >= CONTACT_MAX_PER_HOUR) {
+  showToast("لقد تجاوزت الحد المسموح به. يرجى المحاولة لاحقاً", "error");
+  return;
+}
   const form = e.target;
   const btn = document.getElementById('submitBtn');
   
@@ -3562,6 +3640,7 @@ window.handleContactSubmit = function(e) {
   })
   .then(() => {
     showToast("✨ تم استلام طلبك! سنتواصل معك قريباً.");
+    _contactSubmits.count += 1;
     form.reset();
   })
   .catch(err => {
@@ -3605,10 +3684,13 @@ function showToast(msg, type = 'success') {
   toast.className = `toast ${type}`;
   toast.setAttribute('role', 'alert');
   toast.setAttribute('aria-live', 'polite');
-  toast.innerHTML = `
-    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" aria-hidden="true"></i>
-    <span>${msg}</span>
-  `;
+  const icon = document.createElement('i');
+icon.className = `fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`;
+icon.setAttribute('aria-hidden', 'true');
+const span = document.createElement('span');
+span.textContent = msg;
+toast.appendChild(icon);
+toast.appendChild(span);
   
   container.appendChild(toast);
   
