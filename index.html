@@ -1318,77 +1318,14 @@ backdrop-filter: blur(10px);
     align-items: start;
   }
 
-  .contact-info h3 {
-    font-size: clamp(24px, 3vw, 36px);
-    font-weight: 800;
-    margin-bottom: 20px;
-    line-height: 1.3;
-    color: var(--text-dark);
-  }
+ 
 
-  .contact-info > p {
-    color: var(--text-gray);
-    margin-bottom: 35px;
-    line-height: 1.8;
-    font-size: 17px;
-  }
+  
 
-  .contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
+  
 
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 22px;
-    border-radius: var(--radius-md);
-    transition: all var(--transition-slow);
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(6, 182, 212, 0.15);
-  }
-
-  .contact-item:hover {
-    background: #fff;
-    transform: translateX(-8px);
-    border-color: rgba(6, 182, 212, 0.3);
-    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.1);
-  }
-
-  .contact-item i {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--gov-navy), var(--gov-blue));
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #fff;
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
-    transition: all var(--transition-normal);
-    flex-shrink: 0;
-  }
-
-  .contact-item:hover i {
-    transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, var(--gov-blue), var(--gov-navy));
-  }
-
-  .contact-item div strong {
-    display: block;
-    color: var(--text-dark);
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-
-  .contact-item div span {
-    color: var(--text-gray);
-    font-size: 15px;
-  }
+  
+  
 
   .contact-form {
     padding: 40px;
@@ -2245,8 +2182,189 @@ backdrop-filter: blur(10px);
     border-radius: 8px;
     margin-top: 15px;
 }
+.location-color {
+  background-color: #0891b2; /* نفس لون هوية المساعدة الإدارية الأزرق */
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
 
+.location-color:hover {
+  background-color: #c5a059; /* يتغير للذهبي عند التمرير */
+  transform: scale(1.1);
+}
+.phone-color {
+  background-color: #0891b2; /* لون الهوية الأزرق */
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
 
+.phone-color:hover {
+  background-color: #28a745; /* يتحول للأخضر عند التمرير ليدل على الاتصال */
+  transform: scale(1.1);
+}
+/* حاوية قسم التواصل الرئيسية */
+.contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: stretch;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* بطاقة التعريف الزرقاء */
+.contact-info-card {
+    flex: 1;
+    min-width: 320px;
+    background: linear-gradient(135deg, #0891b2 0%, #065f73 100%);
+    padding: 40px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(8, 145, 178, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info-card h2 {
+    color: #c5a059;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid rgba(197, 160, 89, 0.3);
+    padding-bottom: 15px;
+}
+
+.contact-info-card p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.contact-features {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-features li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 1.05rem;
+}
+
+.contact-features i {
+    color: #c5a059;
+    margin-left: 12px;
+    font-size: 1.2rem;
+}
+
+/* نموذج التواصل (الفورم) */
+.contact-form-container {
+    flex: 1.3;
+    min-width: 380px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+    border: 1px solid #f0f0f0;
+}
+
+.contact-form-container h4 {
+    color: #333;
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-input {
+    width: 100%;
+    padding: 13px;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #0891b2;
+    outline: none;
+}
+
+/* زر الإرسال */
+.submit-button {
+    width: 100%;
+    padding: 17px;
+    background: #0891b2;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(8, 145, 178, 0.25);
+}
+
+.submit-button:hover {
+    background: #c5a059;
+    transform: translateY(-2px);
+}
+
+.submit-button:active {
+    transform: scale(0.98);
+}
+/* تنسيق العناوين داخل النقاط */
+.contact-features b {
+    color: #c5a059;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* تحسين شكل الأيقونات */
+.contact-features i {
+    font-size: 1.3rem;
+    color: #c5a059;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+/* تباعد الأسطر لراحة العين */
+.contact-features li {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    align-items: flex-start;
+}
+
+.contact-info-card p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
 </style>
 </head>
 
@@ -2379,15 +2497,15 @@ backdrop-filter: blur(10px);
         <span class="gov-badge"><i class="fas fa-shield-alt"></i> معتمدة</span>
       </h1>
     </div>
-    <ul class="nav-links" role="menubar">
-      <li role="none"><a href="#home" class="active" role="menuitem">الرئيسية</a></li>
-      <li role="none"><a href="#services" role="menuitem">خدماتنا</a></li>
-      <li role="none"><a href="#products" role="menuitem">منتجاتنا</a></li>
-      <li role="none"><a href="#partners" role="menuitem">شركاؤنا</a></li>
-      <li role="none"><a href="#news" role="menuitem">الأخبار</a></li>
-      <li role="none"><a href="#stats" role="menuitem">إنجازاتنا</a></li>
-      <li role="none"><a href="#contact" role="menuitem">تواصل معنا</a></li>
-    </ul>
+    <ul class="nav-links" id="navLinks" role="menubar">
+  <li role="none"><a href="#home" class="active" onclick="activateLink(this)" role="menuitem">الرئيسية</a></li>
+  <li role="none"><a href="#services" onclick="activateLink(this)" role="menuitem">خدماتنا</a></li>
+  <li role="none"><a href="#products" onclick="activateLink(this)" role="menuitem">منتجاتنا</a></li>
+  <li role="none"><a href="#partners" onclick="activateLink(this)" role="menuitem">شركاؤنا</a></li>
+  <li role="none"><a href="#news" onclick="activateLink(this)" role="menuitem">الأخبار</a></li>
+  <li role="none"><a href="#stats" onclick="activateLink(this)" role="menuitem">إنجازاتنا</a></li>
+  <li role="none"><a href="#contact" onclick="activateLink(this)" role="menuitem">تواصل معنا</a></li>
+</ul>
     <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileMenu">
       <i class="fas fa-bars"></i>
     </button>
@@ -2784,124 +2902,97 @@ onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
       </div>
     </div>
   </section>
+  <section id="contact" class="contact-wrapper">
+    
+    <div class="contact-info-card" data-aos="fade-right">
+    <h2>المساعدة الإدارية | شريكك نحو التميز المؤسسي 🤝</h2>
+    <p>نحن لا نقدم مجرد استشارات، نحن نصنع معك قصة نجاح إدارية متكاملة تبدأ من الفكرة وتصل بك إلى الريادة والتمكين.</p>
+    
+    <ul class="contact-features">
+        <li>
+            <i class="fas fa-rocket"></i>
+            <span><b>تمكين وبناء:</b> نضع حجر الأساس لجمعيتك ونجهزك كلياً للحصول على المنح التأسيسية باحترافية.</span>
+        </li>
+        <li>
+            <i class="fas fa-shield-check"></i>
+            <span><b>حوكمة واستدامة:</b> نجعل الحوكمة محركاً لنموك، ونجهز ملفاتك لتجتاز معايير المركز الوطني بامتياز.</span>
+        </li>
+        <li>
+            <i class="fas fa-lightbulb"></i>
+            <span><b>حلول عملية:</b> نقدم استشارات وحلول تطويرية "واقعية" ترفع كفاءة أداء فريقك وتوفر وقتك وجهدك.</span>
+        </li>
+        <li>
+            <i class="fas fa-chart-line"></i>
+            <span><b>أثر ملموس:</b> نصمم ونرفع مبادراتك للمانحين بأسلوب يجذب الدعم ويحقق أعلى معدلات القبول.</span>
+        </li>
+    </ul>
 
-  <!-- Contact Section -->
-  <section class="contact-section" id="contact" aria-labelledby="contactTitle">
-    <div class="contact-container">
-      <div class="contact-info" data-aos="fade-right">
-        <h3 id="contactTitle">لنبدأ التعاون اليوم</h3>
-        <p>
-          المساعدة الإدارية | شريكك نحو التميز المؤسسي 🤝
-
-لنبدأ التعاون اليوم…
-نحن هنا لمساعدتك على تحقيق أهدافك الإدارية باحترافية عالية.
-<br>
-
-✨ استشارة مجانية<br>
-✨ حلول تطويرية عملية<br>
-✨ رفع كفاءة وأداء جمعيتك
+    <div style="margin-top: 25px; padding: 15px; border-right: 4px solid #c5a059; background: rgba(197, 160, 89, 0.05); border-radius: 4px;">
+        <p style="margin: 0; font-size: 0.95rem; color: #fff; line-height: 1.6;">
+            ✨ <b>استشارة مجانية:</b> ابدأ معنا اليوم بطلب استشارتك المجانية، وخلّنا نمكّنك من الوصول لأهدافك الإدارية.
         </p>
-        
-        <div class="contact-details">
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-            <div>
-              <strong>الموقع</strong>
-              <span>شارع الجيش ، الطائف، المملكة العربية السعودية</span>
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-phone" aria-hidden="true"></i>
-            <div>
-              <strong>الهاتف</strong>
-              <span dir="ltr">+966 58 017 1160</span><br>
-              <span dir="ltr">+966 59 170 0131</span>
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <div>
-              <strong>البريد الإلكتروني</strong>
-              <span>info@almosaadah.sa</span>
-            </div>
-          </div>
-          
-          <div class="contact-item">
-            <i class="fas fa-clock" aria-hidden="true"></i>
-            <div>
-              <strong>ساعات العمل</strong>
-              <span>الأحد - الخميس: 9:00 ص - 2:00 م</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="contact-form" data-aos="fade-left">
-        <form id="contactForm" onsubmit="handleContactSubmit(event)" novalidate>
-          <div class="form-group">
-            <label for="fullName">الاسم الكامل</label>
-            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="أدخل اسمك الثلاثي" required minlength="3" autocomplete="name">
-          </div>
-          
-          <div class="form-group">
-            <label for="email">البريد الإلكتروني</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required autocomplete="email">
-          </div>
-          
-          <div class="form-group">
-    <label for="service-select"><i class="fas fa-concierge-bell"></i> الخدمة أو المنتج المطلوب</label>
-    <select id="service-select" class="form-control" name="service" required>
-        <option value="">-- اختر من القائمة --</option>
-        
-        <optgroup label="خدماتنا الإدارية">
-            <option value="الخطط الاستراتيجية">بناء الخطط الاستراتيجية والتشغيلية</option>
-            <option value="تجهيز ملف الحوكمة">تجهيز ملف الحوكمة</option>
-            <option value="إعداد طلب دعم الصندوق">جاهزية صندوق دعم الجمعيات</option>
-            <option value="تصميم المشاريع التنموية">تصميم المشاريع التنموية</option>
-            <option value="تقديم المشاريع للمانحين">تقديم ورفع المشاريع للمانحين</option>
-            <option value="تأسيس الجمعيات والمؤسسات">تأسيس الجمعيات والمؤسسات الأهلية</option>
-            <option value="التسجيل في منصة إحسان">التسجيل والرفع في منصة إحسان</option>
-            <option value="بناء فرق العمل">بناء فرق العمل المؤسسي</option>
-            <option value="الاستشارات الإدارية و الفنية">الاستشارات الإدارية والفنية</option>
-            <option value="مراجعة القوائم المالية">مراجعة القوائم المالية</option>
-        </optgroup>
-
-        <optgroup label="منتجاتنا النوعية">
-            <option value="منتج عون">1️⃣ منتج عون</option>
-            <option value="بكج المساعدة الإدارية">2️⃣ بكج المساعدة الإدارية</option>
-            <option value="منتج الجهات المانحة">3️⃣ منتج الجهات المانحة</option>
-            <option value="المنسق المؤسسي">4️⃣ منتج المنسق المؤسسي للمانحين</option>
-            <option value="بكج المنحة التأسيسية">5️⃣ بكج المنحة التأسيسية</option>
-            <option value="تأهيل برو">🚀 برنامج تأهيل برو</option>
-            
-        </optgroup>
-    </select>
-</div>
-          
-          <div class="form-group">
-            <label for="phone">رقم الجوال</label>
-            <input type="tel" id="phone" name="phone" class="form-control" placeholder="05xxxxxxxx" required pattern="05[0-9]{8}" autocomplete="tel">
-          </div>
-          
-          <div class="form-group">
-            <label for="message">الرسالة</label>
-            <textarea id="message" name="message" class="form-control" placeholder="اكتب رسالتك هنا... نحن مستعدون لمساعدتك" maxlength="1000"></textarea>
-          </div>
-          <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
-            <input type="text" name="_trap" tabindex="-1" autocomplete="off" value="">
-          </div>
-          <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%;">
-            <i class="fas fa-paper-plane" aria-hidden="true"></i>
-            إرسال الرسالة
-          </button>
-        </form>
-      </div>
     </div>
-  </section>
-</main>
+</div>
 
+    <div class="contact-form-container" data-aos="fade-left">
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" novalidate>
+            <h4>طلب خدمة أو استشارة</h4>
+
+            <div class="form-group">
+                <label for="fullName">الاسم الكامل</label>
+                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="أدخل اسمك الثلاثي" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">رقم الجوال</label>
+                <input type="tel" id="phone" name="phone" class="form-input" placeholder="05xxxxxxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="example@domain.com" required>
+            </div>
+
+             <div class="form-group" style="margin-bottom: 30px;">
+                <label for="service-select" style="display: block; margin-bottom: 10px; font-weight: 600; color: #444;">
+                    الخدمة أو المنتج المطلوب
+                </label>
+                <select id="service-select" class="form-control" name="service" style="width: 100%; padding: 14px; border: 1.5px solid #eee; border-radius: 10px; background: #fdfdfd; cursor: pointer;" required>
+                    <option value="">-- اختر من القائمة --</option>
+                    <optgroup label="خدماتنا الإدارية">
+                        <option value="الخطط الاستراتيجية">بناء الخطط الاستراتيجية والتشغيلية</option>
+                        <option value="تجهيز ملف الحوكمة">تجهيز ملف الحوكمة</option>
+                        <option value="إعداد طلب دعم الصندوق">جاهزية صندوق دعم الجمعيات</option>
+                        <option value="تصميم المشاريع التنموية">تصميم المشاريع التنموية</option>
+                        <option value="تقديم المشاريع للمانحين">تقديم ورفع المشاريع للمانحين</option>
+                        <option value="تأسيس الجمعيات والمؤسسات">تأسيس الجمعيات والمؤسسات الأهلية</option>
+                        <option value="التسجيل في منصة إحسان">التسجيل والرفع في منصة إحسان</option>
+                        <option value="بناء فرق العمل">بناء فرق العمل المؤسسي</option>
+                        <option value="الاستشارات الإدارية و الفنية">الاستشارات الإدارية والفنية</option>
+                        <option value="مراجعة القوائم المالية">مراجعة القوائم المالية</option>
+                    </optgroup>
+                    <optgroup label="منتجاتنا النوعية">
+                        <option value="منتج عون">1️⃣ منتج عون</option>
+                        <option value="بكج المساعدة الإدارية">2️⃣ بكج المساعدة الإدارية</option>
+                        <option value="منتج الجهات المانحة">3️⃣ منتج الجهات المانحة</option>
+                        <option value="المنسق المؤسسي">4️⃣ منتج المنسق المؤسسي للمانحين</option>
+                        <option value="بكج المنحة التأسيسية">5️⃣ بكج المنحة التأسيسية</option>
+                        <option value="تأهيل برو">🚀 برنامج تأهيل برو</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">تفاصيل إضافية</label>
+                <textarea id="message" name="message" class="form-input" style="min-height: 100px;" placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-button" id="submitBtn">
+                إرسال الطلب الآن <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+            </button>
+        </form>
+    </div>
+</section>
 <!-- Footer -->
 <footer>
   <div class="footer-content">
@@ -2916,6 +3007,12 @@ onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
     <p>المساعدة الادارية .. شراكة فاعلة … وأثر مستدام</p>
     
     <div class="social-links">
+      <a href="https://maps.app.goo.gl/jK8yi1nTffKHR1oTA?g_st=aw" class="location-color" aria-label="الموقع الجغرافي" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+      </a>
+      <a href="tel:0580171160" class="phone-color" aria-label="اتصال هاتف" target="_blank" rel="noopener noreferrer">
+       <i class="fas fa-phone-alt" aria-hidden="true"></i>
+      </a>
       <a href="https://x.com/SWalttwyr" class="x-color" aria-label="X (تويتر)" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-x-twitter" aria-hidden="true"></i>
       </a>
@@ -2925,9 +3022,10 @@ onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
       <a href="https://wa.me/966580171160" class="whatsapp-color" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp" aria-hidden="true"></i>
       </a>
-      <a href="mailto:info@almosaadah.sa" class="email-color" aria-label="البريد الإلكتروني">
+      <a href="/cdn-cgi/l/email-protection#7e171018113e1f1213110d1f1f1a1f16500d1f" class="email-color" aria-label="البريد الإلكتروني">
         <i class="fas fa-envelope" aria-hidden="true"></i>
       </a>
+      
     </div>
 
     <div class="copyright">
@@ -2946,16 +3044,18 @@ onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
     <i class="fab fa-x-twitter" aria-hidden="true"></i>
   </a>
   
-  <a href="mailto:info@almosaadah.sa" class="social-btn email-btn" title="بريد إلكتروني" aria-label="إرسال بريد إلكتروني">
+  <a href="/cdn-cgi/l/email-protection#5b32353d341b3a373634283a3a3f3a3375283a" class="social-btn email-btn" title="بريد إلكتروني" aria-label="إرسال بريد إلكتروني">
     <i class="fas fa-envelope" aria-hidden="true"></i>
   </a>
+  
+</a>
 </div>
 
 <!-- Hidden Admin Trigger -->
 <button id="adminTrigger" aria-label="لوحة التحكم" style="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;cursor:default;" onclick="openLoginModal()"></button>
 
 <!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="module">
 // ==========================================
 // 1. استيراد Supabase
@@ -3742,6 +3842,11 @@ toast.appendChild(span);
   }, 4000);
 }
 
+window.activateLink = function(el) {
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  el.classList.add('active');
+};
+
 window.toggleMenu = function() {
   const menu = document.getElementById('mobileMenu');
   const overlay = document.getElementById('overlay');
@@ -3866,5 +3971,5 @@ window.addEventListener('DOMContentLoaded', async () => {
   });
 });
 </script>
-</body>
+</body> 
 </html>
