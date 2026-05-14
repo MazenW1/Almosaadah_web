@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم — جمعية الفحو</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="config.js"></script>
+<style>
+:root{
+  --primary:#2563eb;--primary-light:#3b82f6;--primary-pale:#eff6ff;--primary-mid:#bfdbfe;
+  --accent:#0ea5e9;--white:#fff;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+  --gray-400:#94a3b8;--gray-600:#64748b;--gray-800:#1e293b;
+  --green:#16a34a;--green-pale:#dcfce7;
+  --red:#dc2626;--red-pale:#fee2e2;
+  --gold:#f59e0b;--gold-pale:#fffbeb;
+  --radius:10px;--shadow:0 2px 8px rgba(37,99,235,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;direction:rtl;background:var(--gray-50);color:var(--gray-800)}
+
+/* ── LOGIN ── */
+#loginScreen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#1e3a8a,#0369a1);
+}
+.login-box{
+  background:white;border-radius:18px;padding:40px 36px;
+  width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  text-align:center;
+}
+.login-logo{
+  width:64px;height:64px;border-radius:14px;margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;color:white;font-weight:900;
+}
+.login-box h1{font-size:20px;font-weight:900;color:var(--gray-800);margin-bottom:4px}
+.login-box p{font-size:13px;color:var(--gray-400);margin-bottom:28px}
+.field{margin-bottom:14px;text-align:right}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--gray-600);margin-bottom:6px}
+.field input{
+  width:100%;border:1.5px solid var(--gray-200);border-radius:8px;
+  padding:11px 13px;font-family:'Tajawal',sans-serif;font-size:14px;
+  outline:none;transition:border-color .2s;
+}
+.field input:focus{border-color:var(--primary)}
+.btn-login{
+  width:100%;background:var(--primary);color:white;border:none;
+  border-radius:8px;padding:13px;font-family:'Tajawal',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;
+  margin-top:4px;
+}
+.btn-login:hover{background:var(--primary-light)}
+.login-err{color:var(--red);font-size:13px;margin-top:10px;display:none}
+
+/* ── LAYOUT ── */
+#adminApp{display:none}
+.sidebar{
+  position:fixed;top:0;right:0;bottom:0;width:240px;
+  background:white;border-left:1px solid var(--gray-200);
+  display:flex;flex-direction:column;z-index:100;
+}
+.sidebar-brand{
+  padding:18px 16px;border-bottom:1px solid var(--gray-100);
+  display:flex;align-items:center;gap:10px;
+}
+.s-logo{
+  width:38px;height:38px;border-radius:9px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  color:white;font-size:18px;font-weight:900;flex-shrink:0;
+}
+.s-name{font-size:12px;font-weight:700;color:var(--gray-800);line-height:1.4}
+.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;cursor:pointer;
+  font-size:14px;font-weight:500;color:var(--gray-600);
+  transition:all .2s;margin-bottom:2px;border:none;
+  background:none;width:100%;text-align:right;
+}
+.nav-item i{width:18px;text-align:center;font-size:15px}
+.nav-item:hover{background:var(--gray-100);color:var(--gray-800)}
+.nav-item.active{background:var(--primary-pale);color:var(--primary);font-weight:700}
+.sidebar-footer{padding:12px 10px;border-top:1px solid var(--gray-100)}
+.btn-logout{
+  width:100%;background:var(--red-pale);color:var(--red);
+  border:none;border-radius:8px;padding:9px;
+  font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.btn-logout:hover{background:var(--red);color:white}
+
+.main{margin-right:240px;min-height:100vh;padding:28px 28px 40px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;
+}
+.topbar h1{font-size:22px;font-weight:900;color:var(--gray-800)}
+.topbar p{font-size:13px;color:var(--gray-400)}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:var(--gray-800);color:white;
+  padding:11px 24px;border-radius:50px;font-size:13px;font-weight:600;
+  z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;
+}
+#toast.show{opacity:1}
+#toast.ok{background:var(--green)}
+#toast.err{background:var(--red)}
+
+/* ── CARDS ── */
+.stats-overview{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.ov-card{
+  background:white;border-radius:var(--radius);
+  border:1px solid var(--gray-200);padding:18px;
+  box-shadow:var(--shadow);
+}
+.ov-icon{
+  width:40px;height:40px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:10px;
+}
+.ov-icon.blue{background:var(--primary-pale);color:var(--primary)}
+.ov-icon.sky{background:var(--accent-pale,#e0f2fe);color:var(--accent)}
+.ov-icon.green{background:var(--green-pale);color:var(--green)}
+.ov-icon.gold{background:var(--gold-pale);color:var(--gold)}
+.ov-num{font-size:26px;font-weight:900;color:var(--gray-800)}
+.ov-lbl{font-size:12px;color:var(--gray-400);margin-top:2px}
+
+/* ── TABLE CARD ── */
+.card{
+  background:white;border-radius:var(--radius);
+  border:1px solid var(--gray-200);
+  box-shadow:var(--shadow);margin-bottom:22px;
+}
+.card-head{
+  padding:16px 20px;border-bottom:1px solid var(--gray-100);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-head h2{font-size:16px;font-weight:800;color:var(--gray-800)}
+.card-body{padding:0}
+table{width:100%;border-collapse:collapse}
+th{
+  padding:11px 16px;text-align:right;
+  font-size:12px;font-weight:700;color:var(--gray-400);
+  background:var(--gray-50);border-bottom:1px solid var(--gray-200);
+}
+td{
+  padding:12px 16px;font-size:13px;
+  border-bottom:1px solid var(--gray-100);color:var(--gray-800);
+  vertical-align:middle;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--gray-50)}
+.badge{
+  display:inline-block;padding:3px 10px;border-radius:50px;
+  font-size:11px;font-weight:700;
+}
+.badge-green{background:var(--green-pale);color:var(--green)}
+.badge-red{background:var(--red-pale);color:var(--red)}
+.badge-blue{background:var(--primary-pale);color:var(--primary)}
+.img-thumb{width:48px;height:36px;object-fit:cover;border-radius:6px}
+.img-placeholder{
+  width:48px;height:36px;border-radius:6px;
+  background:var(--gray-100);display:flex;align-items:center;
+  justify-content:center;font-size:18px;
+}
+
+/* ── ACTIONS ── */
+.actions{display:flex;gap:6px}
+.btn-sm{
+  padding:5px 12px;border-radius:6px;font-size:12px;font-weight:700;
+  cursor:pointer;border:none;font-family:'Tajawal',sans-serif;
+  display:inline-flex;align-items:center;gap:4px;transition:all .2s;
+}
+.btn-edit{background:var(--primary-pale);color:var(--primary)}
+.btn-edit:hover{background:var(--primary);color:white}
+.btn-del{background:var(--red-pale);color:var(--red)}
+.btn-del:hover{background:var(--red);color:white}
+.btn-toggle-on{background:var(--green-pale);color:var(--green)}
+.btn-toggle-on:hover{background:var(--green);color:white}
+.btn-toggle-off{background:var(--gold-pale);color:var(--gold)}
+.btn-toggle-off:hover{background:var(--gold);color:white}
+
+/* ── ADD BUTTON ── */
+.btn-add{
+  background:var(--primary);color:white;border:none;
+  border-radius:8px;padding:9px 18px;font-family:'Tajawal',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;transition:all .2s;
+}
+.btn-add:hover{background:var(--primary-light)}
+
+/* ── MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  z-index:500;display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.modal{
+  background:white;border-radius:16px;
+  width:100%;max-width:520px;max-height:90vh;
+  overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.modal-head{
+  padding:18px 22px;border-bottom:1px solid var(--gray-100);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:white;z-index:2;
+}
+.modal-head h3{font-size:16px;font-weight:800;color:var(--gray-800)}
+.modal-close{
+  width:32px;height:32px;border-radius:8px;border:none;
+  background:var(--gray-100);cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gray-600);transition:all .2s;
+}
+.modal-close:hover{background:var(--red-pale);color:var(--red)}
+.modal-body{padding:22px}
+.form-row{margin-bottom:16px}
+.form-row label{display:block;font-size:13px;font-weight:600;color:var(--gray-600);margin-bottom:6px}
+.form-row input,
+.form-row textarea,
+.form-row select{
+  width:100%;border:1.5px solid var(--gray-200);border-radius:8px;
+  padding:10px 12px;font-family:'Tajawal',sans-serif;font-size:13px;
+  outline:none;transition:border-color .2s;color:var(--gray-800);
+  resize:vertical;
+}
+.form-row input:focus,
+.form-row textarea:focus,
+.form-row select:focus{border-color:var(--primary)}
+.form-row textarea{min-height:80px}
+.form-hint{font-size:11px;color:var(--gray-400);margin-top:4px}
+.form-footer{
+  display:flex;gap:10px;justify-content:flex-end;
+  padding:16px 22px;border-top:1px solid var(--gray-100);
+  position:sticky;bottom:0;background:white;
+}
+.btn-cancel{
+  padding:9px 20px;border-radius:8px;border:1.5px solid var(--gray-200);
+  background:white;font-family:'Tajawal',sans-serif;font-size:13px;
+  font-weight:700;cursor:pointer;color:var(--gray-600);transition:all .2s;
+}
+.btn-cancel:hover{background:var(--gray-100)}
+.btn-save{
+  padding:9px 24px;border-radius:8px;border:none;
+  background:var(--primary);color:white;
+  font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+}
+.btn-save:hover{background:var(--primary-light)}
+.btn-save:disabled{background:var(--gray-400);cursor:not-allowed}
+
+/* ── UPLOAD ZONE ── */
+.upload-zone{
+  border:2px dashed var(--primary-mid);border-radius:10px;
+  padding:24px;text-align:center;cursor:pointer;
+  transition:all .2s;background:var(--primary-pale);position:relative;
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--primary);background:#dbeafe}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone i{font-size:28px;color:var(--primary);margin-bottom:8px;display:block}
+.upload-zone p{font-size:13px;color:var(--gray-600)}
+.upload-zone small{color:var(--gray-400);font-size:11px}
+.upload-preview{display:none;position:relative;border-radius:10px;overflow:hidden;border:1.5px solid var(--gray-200)}
+.upload-preview img{width:100%;max-height:160px;object-fit:cover;display:block}
+.upload-remove{position:absolute;top:8px;left:8px;background:var(--red);color:white;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px}
+.upload-bar-wrap{background:var(--gray-100);border-radius:50px;height:6px;margin-top:10px;overflow:hidden;display:none}
+.upload-bar{height:100%;background:var(--primary);border-radius:50px;width:0%;transition:width .3s}
+.upload-status{font-size:12px;color:var(--primary);margin-top:6px;text-align:center;display:none}
+
+/* ── EMPTY ── */
+.empty-row td{text-align:center;padding:32px;color:var(--gray-400);font-size:13px}
+.loading-row td{text-align:center;padding:24px;color:var(--gray-400)}
+
+/* ── SECTION TABS ── */
+.page{display:none}
+.page.active{display:block}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">ف</div>
+    <h1>لوحة التحكم</h1>
+    <p>جمعية التنمية الشبابية بقرى الفحو</p>
+    <div class="field">
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="loginEmail" placeholder="admin@example.com">
+    </div>
+    <div class="field">
+      <label>كلمة المرور</label>
+      <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-login" onclick="doLogin()">
+      <i class="fas fa-sign-in-alt" style="margin-left:7px"></i>تسجيل الدخول
+    </button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <img src="img/logo.png" alt="شعار الجمعية"
+           style="height:42px;width:42px;object-fit:contain;border-radius:8px"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="s-logo" style="display:none">ف</div>
+      <div class="s-name">جمعية الفحو<br><span style="color:var(--gray-400);font-weight:400">لوحة التحكم</span></div>
+    </div>
+    <div class="sidebar-nav">
+      <button class="nav-item active" onclick="showPage('dashboard')">
+        <i class="fas fa-home"></i> الرئيسية
+      </button>
+      <button class="nav-item" onclick="showPage('slides')">
+        <i class="fas fa-images"></i> صور السلايدر
+      </button>
+      <button class="nav-item" onclick="showPage('news')">
+        <i class="fas fa-newspaper"></i> الأخبار والفعاليات
+      </button>
+      <button class="nav-item" onclick="showPage('programs')">
+        <i class="fas fa-project-diagram"></i> البرامج والمشاريع
+      </button>
+      <button class="nav-item" onclick="showPage('stats')">
+        <i class="fas fa-chart-bar"></i> الإحصائيات
+      </button>
+      <button class="nav-item" onclick="showPage('board')">
+        <i class="fas fa-users"></i> أعضاء مجلس الإدارة
+      </button>
+      <button class="nav-item" onclick="showPage('transparency')">
+        <i class="fas fa-folder-open"></i> ملفات الشفافية
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="doLogout()">
+        <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="topbar">
+        <div>
+          <h1>مرحباً بك 👋</h1>
+          <p>لوحة تحكم جمعية التنمية الشبابية بقرى الفحو</p>
+        </div>
+        <a href="index.html" target="_blank" class="btn-add">
+          <i class="fas fa-external-link-alt"></i> عرض الموقع
+        </a>
+      </div>
+      <div class="stats-overview" id="dashStats">
+        <div class="ov-card"><div class="ov-icon blue"><i class="fas fa-images"></i></div><div class="ov-num" id="cnt-slides">—</div><div class="ov-lbl">صور السلايدر</div></div>
+        <div class="ov-card"><div class="ov-icon sky"><i class="fas fa-newspaper"></i></div><div class="ov-num" id="cnt-news">—</div><div class="ov-lbl">الأخبار</div></div>
+        <div class="ov-card"><div class="ov-icon green"><i class="fas fa-project-diagram"></i></div><div class="ov-num" id="cnt-programs">—</div><div class="ov-lbl">البرامج</div></div>
+      <div class="ov-card"><div class="ov-icon blue"><i class="fas fa-users"></i></div><div class="ov-num" id="cnt-board">—</div><div class="ov-lbl">أعضاء المجلس</div></div>
+      <div class="ov-card"><div class="ov-icon green"><i class="fas fa-folder-open"></i></div><div class="ov-num" id="cnt-trans">—</div><div class="ov-lbl">ملفات الشفافية</div></div>
+      </div>
+    </div>
+
+    <!-- SLIDES -->
+    <div class="page" id="page-slides">
+      <div class="topbar">
+        <div><h1>صور السلايدر</h1><p>تظهر في الصفحة الرئيسية للموقع</p></div>
+        <button class="btn-add" onclick="openModal('slide')"><i class="fas fa-plus"></i> إضافة صورة</button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>الصورة</th><th>العنوان</th><th>الترتيب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="slidesTable"><tr class="loading-row"><td colspan="5"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="page" id="page-news">
+      <div class="topbar">
+        <div><h1>الأخبار والفعاليات</h1><p>تظهر في قسم الأخبار بالموقع</p></div>
+        <button class="btn-add" onclick="openModal('news')"><i class="fas fa-plus"></i> إضافة خبر</button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>الصورة</th><th>العنوان</th><th>التصنيف</th><th>النص</th><th>التاريخ</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="newsTable"><tr class="loading-row"><td colspan="7"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRAMS -->
+    <div class="page" id="page-programs">
+      <div class="topbar">
+        <div><h1>البرامج والمشاريع</h1><p>تظهر في قسم البرامج بالموقع</p></div>
+        <button class="btn-add" onclick="openModal('program')"><i class="fas fa-plus"></i> إضافة برنامج</button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>الأيقونة</th><th>الاسم</th><th>المبلغ</th><th>الترتيب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="programsTable"><tr class="loading-row"><td colspan="6"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="page" id="page-stats">
+      <div class="topbar">
+        <div><h1>الإحصائيات</h1><p>الأرقام التي تظهر في شريط الإحصائيات</p></div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>المفتاح</th><th>التسمية</th><th>القيمة</th><th>آخر تحديث</th><th>الإجراءات</th></tr></thead>
+            <tbody id="statsTable"><tr class="loading-row"><td colspan="5"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- BOARD MEMBERS -->
+    <div class="page" id="page-board">
+      <div class="topbar">
+        <div><h1>أعضاء مجلس الإدارة</h1><p>يظهرون في قسم مجلس الإدارة بالموقع</p></div>
+        <button class="btn-add" onclick="openModal('board')"><i class="fas fa-plus"></i> إضافة عضو</button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>الصورة</th><th>الاسم</th><th>المنصب</th><th>الترتيب</th><th>الرئيس</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="boardTable"><tr class="loading-row"><td colspan="7"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRANSPARENCY FILES -->
+    <div class="page" id="page-transparency">
+      <div class="topbar">
+        <div><h1>ملفات الشفافية</h1><p>الوثائق التي تظهر في قسم الشفافية بالموقع</p></div>
+        <button class="btn-add" onclick="openModal('transparency')"><i class="fas fa-plus"></i> إضافة ملف</button>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>الأيقونة</th><th>العنوان</th><th>الوصف</th><th>الملف</th><th>الترتيب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="transTable"><tr class="loading-row"><td colspan="7"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /adminApp -->
+
+<!-- MODAL CONTAINER -->
+<div id="modalBg" class="modal-bg" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let editingId = null, editingType = null;
+
+// ── TOAST ──────────────────────────────────────────
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = 'show ' + type;
+  setTimeout(() => el.className = '', 3000);
+}
+
+// ── AUTH ───────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) {
+    errEl.textContent = 'بيانات غير صحيحة. تحقق من الإيميل وكلمة المرور.';
+    errEl.style.display = 'block';
+    return;
+  }
+  showAdmin();
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  window.location.href = 'index.html';
+}
+
+async function checkSession() {
+  document.body.style.visibility = 'hidden';
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    window.location.replace('index.html');
+    return;
+  }
+  document.body.style.visibility = 'visible';
+  showAdmin(session.user.email);
+}
+
+sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_OUT' || (!session && event !== 'INITIAL_SESSION')) {
+    window.location.replace('index.html');
+  }
+});
+
+function showAdmin(email = '') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminApp').style.display    = 'block';
+  if (email) {
+    const footer = document.querySelector('.sidebar-footer');
+    footer.insertAdjacentHTML('afterbegin', `
+      <div style="padding:10px 12px 0;margin-bottom:8px;display:flex;align-items:center;gap:8px">
+        <div style="width:32px;height:32px;border-radius:8px;background:var(--primary-pale);
+                    display:flex;align-items:center;justify-content:center;
+                    color:var(--primary);font-size:14px;font-weight:700;flex-shrink:0">
+          ${email[0].toUpperCase()}
+        </div>
+        <div style="overflow:hidden">
+          <div style="font-size:11px;font-weight:700;color:var(--gray-800);
+                      white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${email}</div>
+          <div style="font-size:10px;color:var(--gray-400)">مدير النظام</div>
+        </div>
+      </div>
+    `);
+  }
+  loadDashboard();
+  loadSlides();
+}
+
+// ── PAGES ──────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+
+  const loaders = { slides: loadSlides, news: loadNews, programs: loadPrograms, stats: loadStats, board: loadBoard, transparency: loadTransparency };
+  loaders[name]?.();
+}
+
+// ── DASHBOARD ──────────────────────────────────────
+async function loadDashboard() {
+  const tables = ['slides','news','programs','board_members','transparency_files'];
+  const ids    = ['cnt-slides','cnt-news','cnt-programs','cnt-board','cnt-trans'];
+  for (let i = 0; i < tables.length; i++) {
+    const el = document.getElementById(ids[i]);
+    if (!el) continue;
+    const { count } = await sb.from(tables[i]).select('*', { count:'exact', head:true });
+    el.textContent = count ?? '—';
+  }
+}
+
+// ── BOARD MEMBERS ───────────────────────────────────
+async function loadBoard() {
+  const { data } = await sb.from('board_members').select('*').order('sort_order');
+  const tbody = document.getElementById('boardTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="7">لا يوجد أعضاء بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map(m => `
+    <tr>
+      <td>${m.image_url
+        ? `<img src="${m.image_url}" style="width:44px;height:44px;border-radius:50%;object-fit:cover">`
+        : `<div style="width:44px;height:44px;border-radius:50%;background:var(--primary-pale);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--primary)">
+             ${m.name_ar.trim().split(' ').slice(0,2).map(w=>w[0]).join('')}
+           </div>`}</td>
+      <td><strong>${m.name_ar}</strong></td>
+      <td>${m.role_ar}</td>
+      <td>${m.sort_order}</td>
+      <td>${m.is_president
+        ? '<span class="badge" style="background:var(--gold-pale);color:var(--gold)">✓ رئيس</span>'
+        : '—'}</td>
+      <td><span class="badge ${m.is_active ? 'badge-green' : 'badge-red'}">${m.is_active ? 'مفعّل' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('board',${m.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${m.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('board_members',${m.id},${m.is_active},loadBoard)">
+          <i class="fas fa-${m.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('board_members',${m.id},loadBoard)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── TRANSPARENCY FILES ──────────────────────────────
+async function loadTransparency() {
+  const { data } = await sb.from('transparency_files').select('*').order('sort_order');
+  const tbody = document.getElementById('transTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="7">لا توجد ملفات بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map(f => `
+    <tr>
+      <td style="font-size:22px">${f.icon || '📄'}</td>
+      <td><strong>${f.title_ar}</strong></td>
+      <td style="max-width:200px;font-size:12px;color:var(--gray-600)">${f.description_ar || '—'}</td>
+      <td>${f.file_url
+        ? `<a href="${f.file_url}" target="_blank" style="color:var(--primary);font-size:12px;font-weight:700">
+             <i class="fas fa-${f.file_type==='pdf'?'file-pdf':'image'}" style="margin-left:4px"></i>عرض الملف
+           </a>`
+        : '<span style="color:var(--gray-400);font-size:12px">لم يُرفع بعد</span>'}</td>
+      <td>${f.sort_order}</td>
+      <td><span class="badge ${f.is_active ? 'badge-green' : 'badge-red'}">${f.is_active ? 'مفعّل' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('transparency',${f.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${f.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('transparency_files',${f.id},${f.is_active},loadTransparency)">
+          <i class="fas fa-${f.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('transparency_files',${f.id},loadTransparency)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── SLIDES ─────────────────────────────────────────
+async function loadSlides() {
+  const { data } = await sb.from('slides').select('*').order('sort_order');
+  const tbody = document.getElementById('slidesTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="5">لا توجد صور بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map(s => `
+    <tr>
+      <td>${s.image_url
+        ? `<img src="${s.image_url}" class="img-thumb" alt="">`
+        : '<div class="img-placeholder">🖼️</div>'}</td>
+      <td>${s.title_ar || '—'}</td>
+      <td>${s.sort_order}</td>
+      <td><span class="badge ${s.is_active ? 'badge-green' : 'badge-red'}">${s.is_active ? 'مفعّل' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('slide',${s.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${s.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('slides',${s.id},${s.is_active},loadSlides)">
+          <i class="fas fa-${s.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('slides',${s.id},loadSlides)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── NEWS ───────────────────────────────────────────
+async function loadNews() {
+  const { data } = await sb.from('news').select('*').order('created_at', { ascending:false });
+  const tbody = document.getElementById('newsTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">لا توجد أخبار بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map(n => `
+    <tr>
+      <td>
+        ${n.image_url
+          ? `<img src="${n.image_url}" style="width:80px;height:56px;object-fit:cover;border-radius:8px;display:block;" alt="">`
+          : `<div style="width:80px;height:56px;border-radius:8px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);display:flex;align-items:center;justify-content:center;font-size:24px;">📰</div>`}
+      </td>
+      <td style="max-width:180px"><strong>${n.title_ar}</strong></td>
+      <td><span class="badge badge-blue">${n.tag_ar || 'أخبار'}</span></td>
+      <td style="max-width:200px;font-size:12px;color:var(--gray-600)">${n.body_ar ? (n.body_ar.length > 80 ? n.body_ar.substring(0,80)+'...' : n.body_ar) : '—'}</td>
+      <td style="white-space:nowrap">${new Date(n.created_at).toLocaleDateString('ar-SA')}</td>
+      <td><span class="badge ${n.is_active ? 'badge-green' : 'badge-red'}">${n.is_active ? 'منشور' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('news',${n.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${n.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('news',${n.id},${n.is_active},loadNews)">
+          <i class="fas fa-${n.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('news',${n.id},loadNews)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── PROGRAMS ───────────────────────────────────────
+async function loadPrograms() {
+  const { data } = await sb.from('programs').select('*').order('sort_order');
+  const tbody = document.getElementById('programsTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">لا توجد برامج بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map(p => `
+    <tr>
+      <td style="font-size:24px">${p.icon || '📋'}</td>
+      <td><strong>${p.title_ar}</strong></td>
+      <td>${p.amount || '—'}</td>
+      <td>${p.sort_order}</td>
+      <td><span class="badge ${p.is_active ? 'badge-green' : 'badge-red'}">${p.is_active ? 'مفعّل' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('program',${p.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${p.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('programs',${p.id},${p.is_active},loadPrograms)">
+          <i class="fas fa-${p.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('programs',${p.id},loadPrograms)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── STATS ──────────────────────────────────────────
+async function loadStats() {
+  const { data } = await sb.from('stats').select('*').order('id');
+  const tbody = document.getElementById('statsTable');
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="5">لا توجد إحصائيات</td></tr>'; return; }
+  tbody.innerHTML = data.map(s => `
+    <tr>
+      <td><code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:12px">${s.key}</code></td>
+      <td>${s.label_ar}</td>
+      <td><strong style="color:var(--primary)">${s.value.toLocaleString('ar-SA')}</strong></td>
+      <td>${new Date(s.updated_at).toLocaleDateString('ar-SA')}</td>
+      <td><button class="btn-sm btn-edit" onclick="openModal('stat',${s.id})"><i class="fas fa-edit"></i> تعديل</button></td>
+    </tr>
+  `).join('');
+}
+
+
+// ── ACTIONS ────────────────────────────────────────
+async function toggleActive(table, id, current, reload) {
+  const { error } = await sb.from(table).update({ is_active: !current }).eq('id', id);
+  if (error) { toast('حدث خطأ', 'err'); return; }
+  toast(current ? 'تم الإخفاء' : 'تم التفعيل');
+  reload();
+}
+
+async function deleteRow(table, id, reload) {
+  if (!confirm('هل أنت متأكد من الحذف؟ لا يمكن التراجع.')) return;
+  const { error } = await sb.from(table).delete().eq('id', id);
+  if (error) { toast('حدث خطأ أثناء الحذف', 'err'); return; }
+  toast('تم الحذف بنجاح');
+  reload();
+}
+
+// ── MODAL ──────────────────────────────────────────
+const modalForms = {
+  slide: (d={}) => `
+    <div class="form-row">
+      <label>الصورة</label>
+      <div class="upload-preview" id="up-preview-slide" ${d.image_url ? 'style="display:block"' : ''}>
+        ${d.image_url ? `<img src="${d.image_url}" id="up-img-slide">` : '<img id="up-img-slide">'}
+        <button class="upload-remove" type="button" onclick="clearUpload('slide')">✕ إزالة</button>
+      </div>
+      <div class="upload-zone" id="up-zone-slide" ${d.image_url ? 'style="display:none"' : ''}>
+        <input type="file" accept="image/*" onchange="handleUpload(event,'slide','slides')">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>اسحب الصورة هنا أو اضغط للاختيار</p>
+        <small>PNG, JPG, WEBP — حجم أقصى 5MB</small>
+      </div>
+      <div class="upload-bar-wrap" id="up-bar-wrap-slide"><div class="upload-bar" id="up-bar-slide"></div></div>
+      <div class="upload-status" id="up-status-slide"></div>
+      <input type="hidden" id="f-image_url" value="${d.image_url||''}">
+    </div>
+    <div class="form-row"><label>عنوان الصورة (اختياري)</label><input id="f-title_ar" value="${d.title_ar||''}"></div>
+    <div class="form-row"><label>ترتيب العرض</label><input id="f-sort_order" type="number" value="${d.sort_order||0}"></div>
+  `,
+  news: (d={}) => `
+    <div class="form-row"><label>عنوان الخبر *</label><input id="f-title_ar" value="${d.title_ar||''}" placeholder="مثال: إطلاق برنامج تدريبي جديد للشباب" required></div>
+    <div class="form-row"><label>التصنيف</label>
+      <select id="f-tag_ar">
+        ${['أخبار','فعاليات','كفالة الطلاب','التعليم','رياضة','شراكات','تطوع','برامج'].map(t =>
+          `<option ${d.tag_ar===t?'selected':''}>${t}</option>`
+        ).join('')}
+      </select>
+    </div>
+    <div class="form-row"><label>النص / الوصف</label><textarea id="f-body_ar" placeholder="اكتب تفاصيل الخبر هنا...">${d.body_ar||''}</textarea></div>
+    <div class="form-row">
+      <label>صورة الخبر <span style="color:var(--gray-400);font-weight:400">(اختياري — تظهر في بطاقة الخبر)</span></label>
+      <div class="upload-preview" id="up-preview-news" ${d.image_url ? 'style="display:block"' : ''}>
+        <img src="${d.image_url||''}" id="up-img-news" style="width:100%;max-height:180px;object-fit:cover;border-radius:8px;display:block">
+        <button class="upload-remove" type="button" onclick="clearUpload('news')">✕ إزالة الصورة</button>
+      </div>
+      <div class="upload-zone" id="up-zone-news" ${d.image_url ? 'style="display:none"' : ''}>
+        <input type="file" accept="image/*" onchange="handleUpload(event,'news','news')">
+        <i class="fas fa-image"></i>
+        <p>اسحب الصورة هنا أو اضغط للاختيار</p>
+        <small>PNG, JPG, WEBP — حجم أقصى 5MB — الأفضل: 800×450 بكسل</small>
+      </div>
+      <div class="upload-bar-wrap" id="up-bar-wrap-news"><div class="upload-bar" id="up-bar-news"></div></div>
+      <div class="upload-status" id="up-status-news"></div>
+      <input type="hidden" id="f-image_url" value="${d.image_url||''}">
+    </div>
+    <div class="form-row"><label>لون الخلفية <span style="color:var(--gray-400);font-weight:400">(يظهر إذا لم تكن هناك صورة)</span></label>
+      <select id="f-bg_class">
+        ${[['bg1','أزرق'],['bg2','سماوي'],['bg3','ذهبي'],['bg4','أحمر'],['bg5','أخضر']].map(([val,lbl]) =>
+          `<option value="${val}" ${d.bg_class===val?'selected':''}>${lbl} — ${val}</option>`
+        ).join('')}
+      </select>
+    </div>
+  `,
+  program: (d={}) => `
+    <div class="form-row"><label>اسم البرنامج *</label><input id="f-title_ar" value="${d.title_ar||''}" required></div>
+    <div class="form-row"><label>الوصف</label><textarea id="f-description_ar">${d.description_ar||''}</textarea></div>
+    <div class="form-row"><label>المبلغ (اختياري)</label><input id="f-amount" value="${d.amount||''}" placeholder="185,600 ﷼"></div>
+    <div class="form-row"><label>الأيقونة (إيموجي)</label><input id="f-icon" value="${d.icon||'📋'}"></div>
+    <div class="form-row"><label>اللون</label>
+      <select id="f-color_class">
+        ${['teal','navy','gold','purple','blue','sky','indigo'].map(c =>
+          `<option ${d.color_class===c?'selected':''}>${c}</option>`
+        ).join('')}
+      </select>
+    </div>
+    <div class="form-row"><label>المستفيدون</label><input id="f-beneficiaries" value="${d.beneficiaries||''}"></div>
+    <div class="form-row"><label>المدة</label><input id="f-duration" value="${d.duration||''}"></div>
+    <div class="form-row"><label>الترتيب</label><input id="f-sort_order" type="number" value="${d.sort_order||0}"></div>
+  `,
+  stat: (d={}) => `
+    <div class="form-row"><label>التسمية</label><input id="f-label_ar" value="${d.label_ar||''}"></div>
+    <div class="form-row"><label>القيمة (رقم)</label><input id="f-value" type="number" value="${d.value||0}"></div>
+    <div class="form-row"><label>أيقونة FontAwesome</label><input id="f-icon" value="${d.icon||''}" placeholder="users"></div>
+  `,
+
+  board: (d={}) => `
+    <div class="form-row">
+      <label>صورة العضو</label>
+      <div class="upload-preview" id="up-preview-board" ${d.image_url ? 'style="display:block"' : ''}>
+        ${d.image_url ? `<img src="${d.image_url}" id="up-img-board" style="border-radius:50%;width:100px;height:100px;object-fit:cover;margin:0 auto;display:block">` : '<img id="up-img-board">'}
+        <button class="upload-remove" type="button" onclick="clearUpload('board')">✕ إزالة</button>
+      </div>
+      <div class="upload-zone" id="up-zone-board" ${d.image_url ? 'style="display:none"' : ''}>
+        <input type="file" accept="image/*" onchange="handleUpload(event,'board','board')">
+        <i class="fas fa-user-circle"></i>
+        <p>صورة العضو (اختياري)</p>
+        <small>PNG, JPG — حجم أقصى 5MB</small>
+      </div>
+      <div class="upload-bar-wrap" id="up-bar-wrap-board"><div class="upload-bar" id="up-bar-board"></div></div>
+      <div class="upload-status" id="up-status-board"></div>
+      <input type="hidden" id="f-image_url" value="${d.image_url||''}">
+    </div>
+    <div class="form-row"><label>اسم العضو *</label><input id="f-name_ar" value="${d.name_ar||''}" required></div>
+    <div class="form-row"><label>المنصب *</label>
+      <select id="f-role_ar">
+        ${['رئيس مجلس الإدارة','نائب رئيس مجلس الإدارة','عضو مجلس إدارة','أمين السر','أمين المال'].map(r =>
+          `<option ${d.role_ar===r?'selected':''}>${r}</option>`
+        ).join('')}
+      </select>
+    </div>
+    <div class="form-row">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+        <input type="checkbox" id="f-is_president" ${d.is_president?'checked':''} style="width:16px;height:16px">
+        رئيس مجلس الإدارة (يظهر منفرداً في الأعلى)
+      </label>
+    </div>
+    <div class="form-row"><label>ترتيب العرض</label><input id="f-sort_order" type="number" value="${d.sort_order||0}"></div>
+  `,
+
+  transparency: (d={}) => `
+    <div class="form-row"><label>عنوان الملف *</label><input id="f-title_ar" value="${d.title_ar||''}" required></div>
+    <div class="form-row"><label>الوصف</label><textarea id="f-description_ar">${d.description_ar||''}</textarea></div>
+    <div class="form-row"><label>الأيقونة (إيموجي)</label><input id="f-icon" value="${d.icon||'📋'}"></div>
+    <div class="form-row">
+      <label>رفع الملف (PDF أو صورة)</label>
+      <div class="upload-preview" id="up-preview-transparency" ${d.file_url ? 'style="display:block"' : ''}>
+        ${d.file_url
+          ? `<div style="background:var(--primary-pale);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px">
+               <i class="fas fa-file-pdf" style="font-size:24px;color:var(--red)"></i>
+               <span style="font-size:13px;color:var(--primary);word-break:break-all">${d.file_url.split('/').pop()}</span>
+             </div>`
+          : ''}
+        <button class="upload-remove" type="button" onclick="clearUpload('transparency')" style="position:static;margin-top:6px">✕ إزالة الملف</button>
+      </div>
+      <div class="upload-zone" id="up-zone-transparency" ${d.file_url ? 'style="display:none"' : ''}>
+        <input type="file" accept="application/pdf,image/*" onchange="handleUpload(event,'transparency','transparency')">
+        <i class="fas fa-file-upload"></i>
+        <p>اسحب الملف هنا أو اضغط للاختيار</p>
+        <small>PDF, PNG, JPG — حجم أقصى 20MB</small>
+      </div>
+      <div class="upload-bar-wrap" id="up-bar-wrap-transparency"><div class="upload-bar" id="up-bar-transparency"></div></div>
+      <div class="upload-status" id="up-status-transparency"></div>
+      <input type="hidden" id="f-file_url" value="${d.file_url||''}">
+    </div>
+    <div class="form-row"><label>نوع الملف</label>
+      <select id="f-file_type">
+        <option ${d.file_type==='pdf'?'selected':''}>pdf</option>
+        <option ${d.file_type==='image'?'selected':''}>image</option>
+      </select>
+    </div>
+    <div class="form-row"><label>الترتيب</label><input id="f-sort_order" type="number" value="${d.sort_order||0}"></div>
+  `,
+};
+
+const modalTitles = {
+  slide:'صورة السلايدر', news:'خبر / فعالية',
+  program:'برنامج / مشروع', stat:'إحصائية',
+  board:'عضو مجلس إدارة', transparency:'ملف شفافية'
+};
+
+const tableMap = {
+  slide:'slides', news:'news', program:'programs',
+  stat:'stats',
+  board:'board_members', transparency:'transparency_files'
+};
+
+async function openModal(type, id=null) {
+  editingType = type;
+  editingId   = id;
+  let data    = {};
+
+  if (id) {
+    const { data: row } = await sb.from(tableMap[type]).select('*').eq('id', id).single();
+    data = row || {};
+  }
+
+  document.getElementById('modalBox').innerHTML = `
+    <div class="modal-head">
+      <h3>${id ? 'تعديل' : 'إضافة'} ${modalTitles[type]}</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">${modalForms[type](data)}</div>
+    <div class="form-footer">
+      <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+      <button class="btn-save" id="saveBtn" onclick="saveRow()">
+        <i class="fas fa-save" style="margin-left:5px"></i>حفظ
+      </button>
+    </div>
+  `;
+  document.getElementById('modalBg').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalBg').style.display = 'none';
+  editingId = null; editingType = null;
+}
+
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : undefined;
+}
+
+// ── UPLOAD ─────────────────────────────────────────
+async function handleUpload(event, key, bucket) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // حجم أقصى حسب البكيت
+  const maxMB = bucket === 'transparency' ? 20 : 5;
+  if (file.size > maxMB * 1024 * 1024) {
+    toast(`الملف أكبر من ${maxMB}MB`, 'err');
+    return;
+  }
+
+  const barWrap  = document.getElementById('up-bar-wrap-' + key);
+  const bar      = document.getElementById('up-bar-' + key);
+  const status   = document.getElementById('up-status-' + key);
+  const zone     = document.getElementById('up-zone-' + key);
+  const preview  = document.getElementById('up-preview-' + key);
+  const imgEl    = document.getElementById('up-img-' + key);
+  const hiddenInput = document.getElementById(
+    key === 'transparency' ? 'f-file_url' : 'f-image_url'
+  );
+
+  // أظهر شريط التحميل
+  barWrap.style.display = 'block';
+  status.style.display  = 'block';
+  status.textContent    = 'جارٍ الرفع...';
+  bar.style.width       = '30%';
+
+  // اسم فريد للملف
+  const ext      = file.name.split('.').pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+  const { data, error } = await sb.storage
+    .from(bucket)
+    .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+  if (error) {
+    toast('فشل الرفع: ' + error.message, 'err');
+    barWrap.style.display = 'none';
+    status.style.display  = 'none';
+    bar.style.width       = '0%';
+    return;
+  }
+
+  bar.style.width = '100%';
+
+  // احصل على الرابط العام
+  const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(data.path);
+
+  hiddenInput.value    = publicUrl;
+  imgEl.src            = publicUrl;
+  preview.style.display = 'block';
+  zone.style.display   = 'none';
+  barWrap.style.display = 'none';
+  status.style.display  = 'none';
+  bar.style.width       = '0%';
+
+  toast('تم رفع الصورة ✓');
+}
+
+function clearUpload(key) {
+  const zone    = document.getElementById('up-zone-' + key);
+  const preview = document.getElementById('up-preview-' + key);
+  const imgEl   = document.getElementById('up-img-' + key);
+  const hidden  = document.getElementById('f-image_url');
+
+  imgEl.src             = '';
+  hidden.value          = '';
+  preview.style.display = 'none';
+  zone.style.display    = 'block';
+}
+
+async function saveRow() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-left:5px"></i>جارٍ الحفظ...';
+
+  const fieldSets = {
+    slide:        () => ({ image_url: getVal('f-image_url'), title_ar: getVal('f-title_ar'), sort_order: +getVal('f-sort_order') }),
+    news:         () => ({ title_ar: getVal('f-title_ar'), tag_ar: getVal('f-tag_ar'), body_ar: getVal('f-body_ar'), image_url: getVal('f-image_url') || null, bg_class: getVal('f-bg_class') }),
+    program:      () => ({ title_ar: getVal('f-title_ar'), description_ar: getVal('f-description_ar'), amount: getVal('f-amount') || null, icon: getVal('f-icon'), color_class: getVal('f-color_class'), beneficiaries: getVal('f-beneficiaries') || null, duration: getVal('f-duration') || null, sort_order: +getVal('f-sort_order') }),
+    stat:         () => ({ label_ar: getVal('f-label_ar'), value: +getVal('f-value'), icon: getVal('f-icon') }),
+    board:        () => ({ name_ar: getVal('f-name_ar'), role_ar: getVal('f-role_ar'), image_url: getVal('f-image_url') || null, is_president: document.getElementById('f-is_president')?.checked || false, sort_order: +getVal('f-sort_order') }),
+    transparency: () => ({ title_ar: getVal('f-title_ar'), description_ar: getVal('f-description_ar'), icon: getVal('f-icon'), file_url: getVal('f-file_url') || null, file_type: getVal('f-file_type'), sort_order: +getVal('f-sort_order') }),
+  };
+
+  const payload = fieldSets[editingType]();
+  const table   = tableMap[editingType];
+  const { error } = editingId
+    ? await sb.from(table).update(payload).eq('id', editingId)
+    : await sb.from(table).insert(payload);
+
+  if (error) {
+    toast('حدث خطأ: ' + error.message, 'err');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save" style="margin-left:5px"></i>حفظ';
+    return;
+  }
+
+  toast(editingId ? 'تم التعديل بنجاح ✓' : 'تمت الإضافة بنجاح ✓');
+  closeModal();
+
+  const reloaders = { slide: loadSlides, news: loadNews, program: loadPrograms, stat: loadStats, board: loadBoard, transparency: loadTransparency };
+  reloaders[editingType]?.();
+}
+
+// ── INIT ───────────────────────────────────────────
+checkSession();
+</script>
+</body>
+</html>
