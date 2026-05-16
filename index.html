@@ -189,9 +189,22 @@ body::after{
   position:relative;height:100vh;min-height:600px;
   overflow:hidden;margin-top:68px;
 }
+@media(max-width:600px){
+  .hero{
+    height:100svh;
+    min-height:480px;
+  }
+  .slide{
+    background-position:center center !important;
+    background-size:cover !important;
+  }
+}
 .slide{
   position:absolute;inset:0;opacity:0;
-  transition:opacity 1s ease;background-size:cover;background-position:center;
+  transition:opacity 1s ease;
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
 }
 .slide.active{opacity:1}
 .slide:nth-child(1){background:linear-gradient(135deg,#0369a1,#0ea5e9,#38bdf8)}
@@ -724,9 +737,14 @@ footer{
   .hero h1{font-size:clamp(22px,7vw,34px)}
   .hero-btns{flex-direction:column;align-items:center}
   .btn-glow,.btn-ghost{width:100%;max-width:260px;text-align:center}
-  .nav{height:62px;padding:0 1rem}
-  .nav-drawer{top:62px}
-  .hero{margin-top:62px;min-height:520px}
+  .nav{height:60px;padding:0 1rem}
+  .nav-drawer{top:60px}
+  .hero{margin-top:60px;min-height:480px}
+  .hero-body{padding:1.5rem 1rem}
+  .hero h1{font-size:clamp(22px,6vw,32px)}
+  .hero p{font-size:14px;margin-bottom:1.6rem}
+  .hero-chip{font-size:12px;padding:5px 14px;margin-bottom:1rem}
+  .slide-arrows{display:none}
   .vmv{grid-template-columns:1fr 1fr}
 }
 @media(max-width:400px){
@@ -1220,8 +1238,10 @@ async function loadSlides() {
     const div = document.createElement('div');
     div.className = 'slide' + (i === 0 ? ' active' : '');
     if (s.image_url) {
-      div.style.backgroundImage = `url('${s.image_url}')`;
-      div.style.backgroundSize  = 'cover';
+      div.style.backgroundImage    = `url('${s.image_url}')`;
+      div.style.backgroundSize     = 'cover';
+      div.style.backgroundPosition = 'center center';
+      div.style.backgroundRepeat   = 'no-repeat';
     } else {
       const colors = ['#1d4ed8,#0ea5e9','#0369a1,#2563eb','#1e40af,#06b6d4','#0284c7,#3b82f6','#1d4ed8,#7c3aed'];
       div.style.background = `linear-gradient(135deg,${colors[i % colors.length]})`;
