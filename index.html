@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head> 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="جمعية التنمية الشبابية بقرى الفحو — جمعية أهلية مرخصة تسعى إلى تمكين شباب القرى وتنمية قدراتهم من خلال برامج تعليمية وتدريبية ومبادرات مجتمعية بمنطقة مكة المكرمة.">
@@ -113,76 +113,85 @@ body::after{
   position:fixed;top:0;width:100%;z-index:1000;
   height:68px;display:flex;align-items:center;
   padding:0 clamp(1rem,4vw,2.5rem);justify-content:space-between;
-  background:rgba(255,255,255,.75);
-  -webkit-backdrop-filter:blur(20px);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(14,165,233,.15);
-  box-shadow:0 1px 16px rgba(14,165,233,.08);
-  transition:box-shadow .3s,background .3s;
+  background:rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(14,165,233,.1);
+  box-shadow:0 1px 16px rgba(14,165,233,.06);
+  transition:box-shadow .4s,background .4s,height .3s;
 }
 .nav.scrolled{
-  background:rgba(255,255,255,.9);
-  box-shadow:0 4px 28px rgba(14,165,233,.14);
+  height:62px;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 4px 32px rgba(14,165,233,.12);
+  border-bottom-color:rgba(14,165,233,.18);
 }
-.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-brand-logo{
-  height:42px;width:42px;object-fit:contain;border-radius:10px;
-  border:1px solid rgba(14,165,233,.2);
+  height:40px;width:40px;object-fit:contain;border-radius:10px;
+  border:1px solid rgba(14,165,233,.18);
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-.nav-brand-logo:hover{transform:scale(1.1)}
+.nav-brand-logo:hover{transform:scale(1.08)}
 .nav-logo{
-  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
   background:linear-gradient(135deg,var(--ind-600),var(--sky-500));
   display:flex;align-items:center;justify-content:center;
-  color:white;font-size:19px;font-weight:900;
-  box-shadow:0 4px 12px rgba(99,102,241,.3);
+  color:white;font-size:18px;font-weight:900;
+  box-shadow:0 4px 12px rgba(99,102,241,.25);
 }
-.nav-name{font-size:13px;font-weight:700;color:var(--gray-800);line-height:1.4;white-space:nowrap}
-.nav-name small{display:block;font-size:11px;font-weight:400;color:var(--gray-400)}
-.nav-links{display:flex;align-items:center;gap:2px}
+.nav-name{font-size:12px;font-weight:700;color:var(--gray-800);line-height:1.3;white-space:nowrap}
+.nav-name small{display:block;font-size:10px;font-weight:400;color:var(--gray-400)}
+.nav-links{display:flex;align-items:center;gap:0}
 .nav-links a{
-  color:var(--gray-600);text-decoration:none;
-  padding:7px 13px;border-radius:9px;font-size:14px;font-weight:500;
-  transition:all .2s;white-space:nowrap;
+  position:relative;color:var(--gray-500);text-decoration:none;
+  padding:8px 14px;font-size:13px;font-weight:500;
+  transition:color .25s;white-space:nowrap;
 }
-.nav-links a:hover{background:var(--sky-100);color:var(--sky-700)}
-.nav-links a.active{
-  background:rgba(14,165,233,.12);color:var(--sky-600);font-weight:700;
-  border:1px solid rgba(14,165,233,.2);
+.nav-links a::after{
+  content:'';position:absolute;bottom:2px;right:50%;
+  width:0;height:2.5px;border-radius:2px;
+  background:linear-gradient(90deg,var(--sky-400),var(--ind-500));
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  transform:translateX(50%);
 }
+.nav-links a:hover{color:var(--sky-700)}
+.nav-links a:hover::after{width:60%}
+.nav-links a.active{color:var(--sky-600);font-weight:700}
+.nav-links a.active::after{width:70%}
 .nav-mobile-btn{
   display:none;width:40px;height:40px;
   background:rgba(14,165,233,.08);
-  border:1px solid rgba(14,165,233,.2);
+  border:1px solid rgba(14,165,233,.18);
   border-radius:10px;cursor:pointer;
   color:var(--sky-600);font-size:17px;
-  align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;
+  align-items:center;justify-content:center;transition:all .25s;flex-shrink:0;
 }
-.nav-mobile-btn:hover{background:rgba(14,165,233,.15);border-color:var(--sky-400)}
+.nav-mobile-btn:hover{background:rgba(14,165,233,.15);border-color:var(--sky-400);transform:scale(1.05)}
 /* drawer */
 .nav-drawer{
-  display:none;position:fixed;top:68px;right:0;left:0;
+  position:fixed;top:68px;right:0;left:0;z-index:999;
   background:rgba(255,255,255,.95);
-  -webkit-backdrop-filter:blur(24px);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(14,165,233,.15);
-  box-shadow:0 8px 32px rgba(14,165,233,.12);
-  z-index:999;padding:12px 16px 20px;
-  flex-direction:column;gap:4px;
-  animation:slideDown .25s ease;
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(14,165,233,.12);
+  box-shadow:0 8px 32px rgba(14,165,233,.1);
+  padding:12px 16px 20px;
+  display:flex;flex-direction:column;gap:3px;
+  opacity:0;pointer-events:none;
+  transform:translateY(-12px);
+  transition:opacity .28s ease,transform .28s ease;
 }
-.nav-drawer.open{display:flex}
-@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.nav-drawer.open{opacity:1;pointer-events:all;transform:translateY(0)}
 .nav-drawer a{
-  color:var(--gray-600);text-decoration:none;
-  padding:12px 16px;border-radius:10px;font-size:15px;font-weight:500;
+  color:var(--gray-500);text-decoration:none;
+  padding:11px 16px;border-radius:10px;font-size:14px;font-weight:500;
   transition:all .2s;display:flex;align-items:center;gap:10px;
+  border-right:2px solid transparent;
 }
-.nav-drawer a i{color:var(--sky-400);width:18px;text-align:center}
-.nav-drawer a:hover{background:var(--sky-100);color:var(--sky-700)}
-.nav-drawer a.active{background:rgba(14,165,233,.1);color:var(--sky-700);font-weight:700}
-.nav-drawer-divider{height:1px;background:var(--gray-100);margin:6px 0}
+.nav-drawer a i{color:var(--sky-400);width:18px;text-align:center;font-size:14px}
+.nav-drawer a:hover{background:var(--sky-50);color:var(--sky-700);border-right-color:var(--sky-400)}
+.nav-drawer a.active{background:rgba(14,165,233,.08);color:var(--sky-700);font-weight:700;border-right-color:var(--sky-500)}
+.nav-drawer-divider{height:1px;background:var(--gray-100);margin:4px 0}
 
 /* ══════════════ HERO ══════════════ */
 .hero{
@@ -384,6 +393,19 @@ body::after{
 section{padding:80px 2rem}
 .container{max-width:1100px;margin:0 auto}
 .sec-header{text-align:center;margin-bottom:52px}
+
+/* section reveal animation */
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .7s cubic-bezier(.25,.46,.45,.94),
+             transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.show{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
 .sec-chip{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(14,165,233,.08);
@@ -580,6 +602,123 @@ section{padding:80px 2rem}
 }
 .t-link:hover{color:var(--ind-600)}
 
+/* ══════════════ SURVEY ══════════════ */
+.survey-sec{background:transparent}
+.survey-bg{
+  background:rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-lg);
+  padding:48px 40px;
+}
+.survey-intro{text-align:center;margin-bottom:36px}
+.survey-intro h3{font-size:20px;font-weight:900;color:var(--gray-800);margin-bottom:8px}
+.survey-intro p{font-size:14px;color:var(--gray-600);line-height:1.8}
+.survey-qs{display:flex;flex-direction:column;gap:28px}
+.survey-q{}
+.survey-q-text{font-size:15px;font-weight:700;color:var(--gray-800);margin-bottom:12px;line-height:1.6}
+.survey-stars{display:flex;gap:6px;direction:ltr;justify-content:flex-start}
+.survey-stars .star{
+  font-size:32px;cursor:pointer;color:var(--gray-200);
+  transition:color .2s,transform .15s;
+  user-select:none;
+}
+.survey-stars .star.active,
+.survey-stars .star.hover{color:var(--gold);transform:scale(1.1)}
+.survey-labels{display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:var(--gray-400);max-width:180px}
+.survey-submit-wrap{text-align:center;margin-top:40px}
+.btn-survey{
+  background:linear-gradient(135deg,var(--ind-700),var(--sky-500));
+  color:white;border:none;padding:14px 48px;border-radius:50px;
+  font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:all .3s;
+  box-shadow:0 6px 24px rgba(14,165,233,.3);
+}
+.btn-survey:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(14,165,233,.4)}
+.btn-survey:disabled{background:var(--gray-200);color:var(--gray-400);cursor:not-allowed;box-shadow:none;transform:none}
+.survey-thanks{
+  display:none;text-align:center;padding:48px 20px;
+}
+.survey-thanks.show{display:block;animation:fadeUp .5s ease}
+.survey-thanks .icon{font-size:56px;color:var(--green);margin-bottom:16px}
+.survey-thanks h3{font-size:22px;font-weight:900;color:var(--gray-800);margin-bottom:8px}
+.survey-thanks p{font-size:14px;color:var(--gray-600);line-height:1.8}
+.survey-error{text-align:center;padding:32px;color:var(--gray-400);font-size:14px}
+.survey-loading{text-align:center;padding:32px;color:var(--sky-600);font-size:14px}
+
+@media(max-width:600px){
+  .survey-bg{padding:28px 18px}
+  .survey-stars .star{font-size:28px}
+  .survey-intro h3{font-size:18px}
+}
+
+/* ══════════════ COMPLAINTS FORM ══════════════ */
+.contact-form-sec{background:transparent}
+.contact-form-card{
+  background:rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-lg);
+  padding:48px 40px;
+  max-width:720px;margin:0 auto;
+}
+.contact-form-card .form-row{margin-bottom:18px}
+.contact-form-card .form-row label{
+  display:block;font-size:13px;font-weight:700;color:var(--gray-700);
+  margin-bottom:6px;
+}
+.contact-form-card .form-row label .required{color:var(--red)}
+.contact-form-card .form-row input,
+.contact-form-card .form-row textarea,
+.contact-form-card .form-row select{
+  width:100%;background:white;
+  border:1.5px solid var(--gray-200);
+  border-radius:10px;padding:12px 14px;
+  font-family:'Tajawal',sans-serif;font-size:14px;
+  color:var(--gray-800);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.contact-form-card .form-row input:focus,
+.contact-form-card .form-row textarea:focus,
+.contact-form-card .form-row select:focus{
+  border-color:var(--sky-400);
+  box-shadow:0 0 0 3px rgba(14,165,233,.1);
+}
+.contact-form-card .form-row textarea{min-height:120px;resize:vertical}
+.contact-form-card .form-row select{cursor:pointer}
+.btn-send{
+  width:100%;background:linear-gradient(135deg,var(--ind-700),var(--sky-500));
+  color:white;border:none;border-radius:12px;
+  padding:14px 28px;font-family:'Tajawal',sans-serif;
+  font-size:16px;font-weight:700;cursor:pointer;
+  transition:all .3s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 6px 24px rgba(14,165,233,.3);
+}
+.btn-send:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(14,165,233,.4)}
+.btn-send:disabled{background:var(--gray-200);color:var(--gray-400);cursor:not-allowed;box-shadow:none;transform:none}
+.contact-form-success{
+  display:none;text-align:center;padding:48px 20px;
+}
+.contact-form-success.show{display:block;animation:fadeUp .5s ease}
+.contact-form-success .icon{font-size:56px;color:var(--green);margin-bottom:16px}
+.contact-form-success h3{font-size:22px;font-weight:900;color:var(--gray-800);margin-bottom:8px}
+.contact-form-success p{font-size:14px;color:var(--gray-600);line-height:1.8}
+.contact-form-err{
+  display:none;text-align:center;padding:14px 20px;
+  background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);
+  border-radius:10px;font-size:13px;color:var(--red);margin-bottom:16px;
+}
+.contact-form-err.show{display:block}
+@media(max-width:600px){
+  .contact-form-card{padding:28px 18px}
+  .contact-form-card .form-row input,
+  .contact-form-card .form-row textarea,
+  .contact-form-card .form-row select{padding:11px 12px;font-size:13px}
+}
+
 /* ══════════════ CONTACT ══════════════ */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
 .contact-info h2{font-size:24px;font-weight:900;color:var(--gray-800);margin-bottom:8px}
@@ -738,6 +877,7 @@ footer{
   .hero-btns{flex-direction:column;align-items:center}
   .btn-glow,.btn-ghost{width:100%;max-width:260px;text-align:center}
   .nav{height:60px;padding:0 1rem}
+  .nav.scrolled{height:56px}
   .nav-drawer{top:60px}
   .hero{margin-top:60px;min-height:480px}
   .hero-body{padding:1.5rem 1rem}
@@ -834,6 +974,8 @@ footer{
     <a href="#news"><i class="fas fa-newspaper" style="margin-left:5px;font-size:12px;opacity:.6"></i>الأخبار</a>
     <a href="#board"><i class="fas fa-users" style="margin-left:5px;font-size:12px;opacity:.6"></i>مجلس الإدارة</a>
     <a href="#transparency"><i class="fas fa-shield-alt" style="margin-left:5px;font-size:12px;opacity:.6"></i>الشفافية</a>
+    <a href="#survey"><i class="fas fa-star" style="margin-left:5px;font-size:12px;opacity:.6"></i>قياس الرضا</a>
+    <a href="#complaints"><i class="fas fa-comment-dots" style="margin-left:5px;font-size:12px;opacity:.6"></i>التواصل والشكاوي</a>
     <a href="#contact"><i class="fas fa-phone" style="margin-left:5px;font-size:12px;opacity:.6"></i>تواصل</a>
   </div>
 
@@ -851,6 +993,8 @@ footer{
   <a href="#news"        onclick="closeDrawer()"><i class="fas fa-newspaper"></i>الأخبار</a>
   <a href="#board"       onclick="closeDrawer()"><i class="fas fa-users"></i>مجلس الإدارة</a>
   <a href="#transparency" onclick="closeDrawer()"><i class="fas fa-shield-alt"></i>الشفافية</a>
+  <a href="#survey" onclick="closeDrawer()"><i class="fas fa-star"></i>قياس الرضا</a>
+  <a href="#complaints" onclick="closeDrawer()"><i class="fas fa-comment-dots"></i>التواصل والشكاوي</a>
   <div class="nav-drawer-divider"></div>
   <a href="#contact"     onclick="closeDrawer()"><i class="fas fa-phone"></i>تواصل معنا</a>
 </div>
@@ -1004,6 +1148,97 @@ footer{
   </div>
 </section>
 
+<!-- SURVEY -->
+<section class="survey-sec" id="survey">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-chip">تقييم الخدمات</div>
+      <h2 class="sec-title">قياس رضا المستفيدين</h2>
+      <p class="sec-sub">نسعى دائماً للتطوير والتحسين — شاركنا بتقييمك لخدماتنا</p>
+    </div>
+    <div class="survey-bg">
+      <div id="surveyFormWrap">
+        <div class="survey-intro">
+          <h3>🗳️ استبيان قياس الرضا</h3>
+          <p>نرجو منكم تقييم كل عبارة من العبارات التالية بوضع علامة (✓) أمام الإجابة التي تعبر عن رأيكم</p>
+        </div>
+        <div id="surveyQuestions" class="survey-qs">
+          <div class="survey-loading"><i class="fas fa-spinner fa-spin"></i> جارٍ تحميل الأسئلة...</div>
+        </div>
+        <div class="survey-submit-wrap" id="surveySubmitWrap">
+          <button class="btn-survey" id="surveySubmitBtn" onclick="submitSurvey()" disabled>
+            <i class="fas fa-paper-plane" style="margin-left:8px"></i>إرسال التقييم
+          </button>
+        </div>
+      </div>
+      <div class="survey-thanks" id="surveyThanks">
+        <div class="icon"><i class="fas fa-check-circle"></i></div>
+        <h3>شكراً لك!</h3>
+        <p>نقدر وقتك ومشاركتك — تقييمك سيساعدنا في تحسين خدماتنا بشكل مستمر 💙</p>
+        <button class="btn-survey" style="margin-top:20px" onclick="resetSurvey()">
+          <i class="fas fa-redo" style="margin-left:8px"></i>تقييم آخر
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM / COMPLAINTS -->
+<section class="contact-form-sec" id="complaints">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-chip">التواصل والشكاوي</div>
+      <h2 class="sec-title">تواصل معنا أو قدم شكواك</h2>
+      <p class="sec-sub">نرحب باستفساراتكم ومقترحاتكم — فريقنا جاهز للاستماع لكم والرد في أقرب وقت</p>
+    </div>
+    <div class="contact-form-card">
+      <div id="contactFormWrap">
+        <div class="contact-form-err" id="contactFormErr"></div>
+        <div class="form-row">
+          <label>الاسم الكامل <span class="required">*</span></label>
+          <input type="text" id="cf_name" placeholder="أدخل اسمك الكامل">
+        </div>
+        <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div>
+            <label>البريد الإلكتروني</label>
+            <input type="email" id="cf_email" placeholder="example@domain.com">
+          </div>
+          <div>
+            <label>رقم الجوال</label>
+            <input type="tel" id="cf_phone" placeholder="05xxxxxxxx">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>نوع الرسالة <span class="required">*</span></label>
+          <select id="cf_type">
+            <option value="">— اختر نوع الرسالة —</option>
+            <option value="استفسار">💬 استفسار</option>
+            <option value="شكوى">⚠️ شكوى</option>
+            <option value="اقتراح">💡 اقتراح</option>
+            <option value="تواصل">🤝 تواصل</option>
+            <option value="أخرى">📝 أخرى</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>الرسالة <span class="required">*</span></label>
+          <textarea id="cf_message" placeholder="اكتب رسالتك أو شكواك هنا..."></textarea>
+        </div>
+        <button class="btn-send" id="cf_sendBtn" onclick="submitContactForm()">
+          <i class="fas fa-paper-plane"></i>إرسال
+        </button>
+      </div>
+      <div class="contact-form-success" id="contactFormSuccess">
+        <div class="icon"><i class="fas fa-check-circle"></i></div>
+        <h3>تم الإرسال بنجاح ✓</h3>
+        <p>شكراً لتواصلك — سيتم مراجعة رسالتك والرد عليك في أقرب وقت ممكن <br>📧 سيصلك رد على بريدك الإلكتروني</p>
+        <button class="btn-send" style="margin-top:20px;max-width:280px;margin-left:auto;margin-right:auto" onclick="resetContactForm()">
+          <i class="fas fa-redo"></i>إرسال رسالة أخرى
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -1083,6 +1318,8 @@ footer{
         <li><a href="#news">الأخبار</a></li>
         <li><a href="#board">مجلس الإدارة</a></li>
         <li><a href="#transparency">الشفافية</a></li>
+        <li><a href="#survey">قياس الرضا</a></li>
+        <li><a href="#complaints">التواصل والشكاوي</a></li>
         <li><a href="#contact">تواصل معنا</a></li>
       </ul>
     </div>
@@ -1428,20 +1665,6 @@ setInterval(() => {
 
 window.addEventListener('resize', () => { if (newsData.length) renderNews(); });
 
-// ── NAV & SCROLL ───────────────────────────────────
-window.addEventListener('scroll', () => {
-  document.getElementById('scrollTop').classList.toggle('show', scrollY > 400);
-});
-
-// إعادة حساب الـ slider عند تغيير حجم الشاشة
-window.addEventListener('resize', () => {
-  if (newsData.length > 0) {
-    newsPos = Math.min(newsPos, maxNewsPos());
-    applyNewsTransform();
-    buildNewsDots();
-  }
-});
-
 // ── NAVBAR ────────────────────────────────────────
 let drawerOpen = false;
 
@@ -1476,20 +1699,51 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 900) closeDrawer();
 });
 
-// navbar scrolled shadow
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+// ── UNIFIED SCROLL + INTERSECTION OBSERVER ────────
+// Scroll listener (passive)
+const scrollEl = document.getElementById('scrollTop');
+const navbar  = document.getElementById('navbar');
+
+// IntersectionObserver: section visibility + nav highlight
+const sections = document.querySelectorAll('section[id],div[id="hero"]');
+const navLinks = document.querySelectorAll('.nav-links a,.nav-drawer a');
+
+const sectionObs = new IntersectionObserver(entries => {
+  let visibleId = '';
+  entries.forEach(entry => {
+    if (entry.isIntersecting) visibleId = entry.target.id;
+    // section reveal animation
+    if (entry.isIntersecting && entry.target.classList.contains('reveal')) {
+      entry.target.classList.add('show');
+    }
+  });
+  if (visibleId) {
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + visibleId);
+    });
+  }
+}, { rootMargin: '-80px 0px -40% 0px' });
+
+sections.forEach(s => {
+  sectionObs.observe(s);
+  if (s.id !== 'hero') s.classList.add('reveal');
 });
 
-// active link highlight
-const _sections = document.querySelectorAll('section[id],div[id="hero"]');
+// scroll listener for navbar + scrollTop
 window.addEventListener('scroll', () => {
-  let cur = '';
-  _sections.forEach(s => { if (scrollY >= s.offsetTop - 80) cur = s.id; });
-  document.querySelectorAll('.nav-links a,.nav-drawer a').forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
-  });
-}, { passive:true });
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > 20);
+  scrollEl.classList.toggle('show', y > 400);
+}, { passive: true });
+
+// إعادة حساب الـ slider عند تغيير حجم الشاشة
+window.addEventListener('resize', () => {
+  if (newsData.length > 0) {
+    newsPos = Math.min(newsPos, maxNewsPos());
+    applyNewsTransform();
+    buildNewsDots();
+  }
+});
 
 function copyIban(iban, btnId) {
   navigator.clipboard.writeText(iban).then(() => {
@@ -1641,6 +1895,171 @@ async function loadTransparency() {
   `).join('');
 }
 
+// ── SURVEY ──────────────────────────────────────────
+const DEFAULT_QUESTIONS = [
+  'كيف تقيم جودة البرامج والخدمات المقدمة؟',
+  'كيف تقيم مستوى التعامل والاحترافية من فريق العمل؟',
+  'كيف تقيم سهولة التواصل مع الجمعية؟',
+  'كيف تقيم مدى استفادتك من البرامج المقدمة؟',
+  'ما مدى رضاك عن الخدمات الإلكترونية للجمعية؟',
+  'هل تنصح الآخرين بالاستفادة من خدمات الجمعية؟',
+];
+
+let surveyRatings = {};
+let surveyQuestions = [];
+let surveySubmitted = false;
+
+function initStarRating(container) {
+  container.querySelectorAll('.survey-stars').forEach(starContainer => {
+    const qId = starContainer.dataset.qid;
+    const stars = starContainer.querySelectorAll('.star');
+
+    function setActive(val) {
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= val));
+    }
+    function setHover(val) {
+      stars.forEach(s => s.classList.toggle('hover', parseInt(s.dataset.value) <= val));
+    }
+    function clearHover() {
+      stars.forEach(s => s.classList.remove('hover'));
+    }
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const val = parseInt(star.dataset.value);
+        surveyRatings[qId] = val;
+        setActive(val);
+        updateSurveyBtn();
+      });
+
+      star.addEventListener('mouseenter', () => {
+        const val = parseInt(star.dataset.value);
+        setHover(val);
+      });
+    });
+
+    starContainer.addEventListener('mouseleave', clearHover);
+  });
+}
+
+function updateSurveyBtn() {
+  const btn = document.getElementById('surveySubmitBtn');
+  const allRated = surveyQuestions.every(q => surveyRatings[q.id]);
+  btn.disabled = !allRated;
+}
+
+async function loadSurvey() {
+  const container = document.getElementById('surveyQuestions');
+  const { data, error } = await sb.from('survey_questions')
+    .select('*').eq('is_active', true).order('sort_order');
+
+  if (data && data.length > 0) {
+    surveyQuestions = data;
+  } else {
+    surveyQuestions = DEFAULT_QUESTIONS.map((q, i) => ({
+      id: `default_${i}`,
+      question_ar: q,
+      sort_order: i + 1
+    }));
+  }
+
+  surveyRatings = {};
+
+  container.innerHTML = surveyQuestions.map(q => `
+    <div class="survey-q">
+      <div class="survey-q-text">${q.question_ar}</div>
+      <div class="survey-stars" data-qid="${q.id}">
+        ${[1,2,3,4,5].map(v =>
+          `<span class="star" data-value="${v}">★</span>`
+        ).join('')}
+      </div>
+      <div class="survey-labels">
+        <span>غير راضٍ</span>
+        <span>راضٍ جداً</span>
+      </div>
+    </div>
+  `).join('');
+
+  initStarRating(container);
+  updateSurveyBtn();
+}
+
+function submitSurvey() {
+  const allRated = surveyQuestions.every(q => surveyRatings[q.id]);
+  if (!allRated) return;
+
+  surveySubmitted = true;
+  document.getElementById('surveyFormWrap').style.display = 'none';
+  document.getElementById('surveyThanks').classList.add('show');
+}
+
+function resetSurvey() {
+  surveySubmitted = false;
+  surveyRatings = {};
+  document.getElementById('surveyThanks').classList.remove('show');
+  document.getElementById('surveyFormWrap').style.display = 'block';
+  loadSurvey();
+}
+
+// ── CONTACT FORM ─────────────────────────────────────
+function getEl(id) { return document.getElementById(id); }
+
+async function submitContactForm() {
+  const name    = getEl('cf_name').value.trim();
+  const email   = getEl('cf_email').value.trim();
+  const phone   = getEl('cf_phone').value.trim();
+  const type    = getEl('cf_type').value;
+  const message = getEl('cf_message').value.trim();
+  const errEl   = getEl('contactFormErr');
+  const btn     = getEl('cf_sendBtn');
+
+  errEl.classList.remove('show');
+  errEl.textContent = '';
+
+  if (!name)   { showFormErr('يرجى إدخال الاسم الكامل'); return; }
+  if (!type)   { showFormErr('يرجى اختيار نوع الرسالة'); return; }
+  if (!message){ showFormErr('يرجى كتابة الرسالة'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جارٍ الإرسال...';
+
+  const payload = {
+    name, email: email || null, phone: phone || null,
+    message_type: type, message
+  };
+
+  const { error } = await sb.from('contact_messages').insert(payload);
+
+  if (error) {
+    showFormErr('حدث خطأ أثناء الإرسال: ' + error.message);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i>إرسال';
+    return;
+  }
+
+  btn.innerHTML = '<i class="fas fa-check"></i> تم الإرسال';
+  getEl('contactFormWrap').style.display = 'none';
+  getEl('contactFormSuccess').classList.add('show');
+}
+
+function showFormErr(msg) {
+  const el = getEl('contactFormErr');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function resetContactForm() {
+  getEl('cf_name').value = '';
+  getEl('cf_email').value = '';
+  getEl('cf_phone').value = '';
+  getEl('cf_type').value = '';
+  getEl('cf_message').value = '';
+  getEl('contactFormSuccess').classList.remove('show');
+  getEl('contactFormWrap').style.display = 'block';
+  getEl('cf_sendBtn').disabled = false;
+  getEl('cf_sendBtn').innerHTML = '<i class="fas fa-paper-plane"></i>إرسال';
+}
+
 // ── BOOTSTRAP ──────────────────────────────────────
 (async () => {
   await Promise.all([
@@ -1650,6 +2069,7 @@ async function loadTransparency() {
     loadNews(),
     loadBoard(),
     loadTransparency(),
+    loadSurvey(),
   ]);
 })();
 </script>
