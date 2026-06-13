@@ -462,7 +462,14 @@ tr:hover td{background:rgba(240,249,255,.5)}
         <i class="fas fa-users"></i> مجلس الإدارة
       </button>
       <button class="nav-item" onclick="showPage('transparency')">
-        <i class="fas fa-folder-open"></i> ملفات الشفافية
+        <i class="fas fa-folder-open"></i> ملفات الحوكمة
+      </button>
+      <div class="nav-section-label">التقييم</div>
+      <button class="nav-item" onclick="showPage('survey')">
+        <i class="fas fa-star"></i> أسئلة الرضا
+      </button>
+      <button class="nav-item" onclick="showPage('messages')">
+        <i class="fas fa-comment-dots"></i> الرسائل والشكاوي
       </button>
 
       <div class="nav-section-label">الإعدادات</div>
@@ -496,7 +503,9 @@ tr:hover td{background:rgba(240,249,255,.5)}
         <div class="ov-card"><div class="ov-icon sky"><i class="fas fa-newspaper"></i></div><div class="ov-num" id="cnt-news">—</div><div class="ov-lbl">الأخبار</div></div>
         <div class="ov-card"><div class="ov-icon green"><i class="fas fa-project-diagram"></i></div><div class="ov-num" id="cnt-programs">—</div><div class="ov-lbl">البرامج</div></div>
       <div class="ov-card"><div class="ov-icon blue"><i class="fas fa-users"></i></div><div class="ov-num" id="cnt-board">—</div><div class="ov-lbl">أعضاء المجلس</div></div>
-      <div class="ov-card"><div class="ov-icon green"><i class="fas fa-folder-open"></i></div><div class="ov-num" id="cnt-trans">—</div><div class="ov-lbl">ملفات الشفافية</div></div>
+      <div class="ov-card"><div class="ov-icon green"><i class="fas fa-folder-open"></i></div><div class="ov-num" id="cnt-trans">—</div><div class="ov-lbl">ملفات الحوكمة</div></div>
+      <div class="ov-card"><div class="ov-icon gold"><i class="fas fa-star"></i></div><div class="ov-num" id="cnt-survey">—</div><div class="ov-lbl">أسئلة الرضا</div></div>
+      <div class="ov-card"><div class="ov-icon sky"><i class="fas fa-comment-dots"></i></div><div class="ov-num" id="cnt-messages">—</div><div class="ov-lbl">الرسائل</div></div>
       </div>
     </div>
 
@@ -583,7 +592,7 @@ tr:hover td{background:rgba(240,249,255,.5)}
     <!-- TRANSPARENCY FILES -->
     <div class="page" id="page-transparency">
       <div class="topbar">
-        <div><h1>ملفات الشفافية</h1><p>الوثائق التي تظهر في قسم الشفافية بالموقع</p></div>
+        <div><h1>ملفات الحوكمة</h1><p>الوثائق التي تظهر في قسم الحوكمة بالموقع</p></div>
         <button class="btn-add" onclick="openModal('transparency')"><i class="fas fa-plus"></i> إضافة ملف</button>
       </div>
       <div class="card">
@@ -591,6 +600,49 @@ tr:hover td{background:rgba(240,249,255,.5)}
           <table>
             <thead><tr><th>الأيقونة</th><th>العنوان</th><th>الوصف</th><th>الملف</th><th>الترتيب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
             <tbody id="transTable"><tr class="loading-row"><td colspan="7"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SURVEY QUESTIONS -->
+    <div class="page" id="page-survey">
+      <div class="topbar">
+        <div><h1>أسئلة قياس الرضا</h1><p>تظهر في استبيان الرضا في الموقع — تقييم بالنجوم من 1 إلى 5</p></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-add" style="background:var(--gray-600)" id="setupSurveyBtn" onclick="setupSurveyTable()"><i class="fas fa-database"></i> تهيئة الجدول</button>
+          <button class="btn-add" onclick="openModal('survey')"><i class="fas fa-plus"></i> إضافة سؤال</button>
+        </div>
+      </div>
+      <div id="surveySetupMsg"></div>
+      <div class="card">
+        <div class="card-body">
+          <table>
+            <thead><tr><th>#</th><th>السؤال</th><th>الترتيب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="surveyTable"><tr class="loading-row"><td colspan="5"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT MESSAGES -->
+    <div class="page" id="page-messages">
+      <div class="topbar">
+        <div><h1>الرسائل والشكاوي</h1><p>رسائل المستفيدين من نموذج التواصل في الموقع</p></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn-add" style="background:var(--gray-600)" id="setupMessagesBtn" onclick="setupMessagesTable()"><i class="fas fa-database"></i> تهيئة الجدول</button>
+        </div>
+      </div>
+      <div id="messagesSetupMsg"></div>
+      <div class="card">
+        <div class="card-head">
+          <h2><i class="fas fa-inbox" style="margin-left:6px;color:var(--sky-500)"></i> جميع الرسائل</h2>
+          <span style="font-size:12px;color:var(--gray-400)" id="messagesCount"></span>
+        </div>
+        <div class="card-body">
+          <table>
+            <thead><tr><th>#</th><th>الاسم</th><th>البريد</th><th>الجوال</th><th>النوع</th><th>الرسالة</th><th>التاريخ</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
+            <tbody id="messagesTable"><tr class="loading-row"><td colspan="9"><i class="fas fa-spinner fa-spin"></i> جارٍ التحميل...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -675,6 +727,9 @@ function showAdmin(email = '') {
   }
   loadDashboard();
   loadSlides();
+  loadSurvey();
+  loadMessages();
+  loadGovernance();
 }
 
 // ── PAGES ──────────────────────────────────────────
@@ -684,14 +739,14 @@ function showPage(name) {
   document.getElementById('page-' + name).classList.add('active');
   event.currentTarget.classList.add('active');
 
-  const loaders = { slides: loadSlides, news: loadNews, programs: loadPrograms, stats: loadStats, board: loadBoard, transparency: loadTransparency };
+  const loaders = { slides: loadSlides, news: loadNews, programs: loadPrograms, stats: loadStats, board: loadBoard, transparency: loadTransparency, survey: loadSurvey, messages: loadMessages };
   loaders[name]?.();
 }
 
 // ── DASHBOARD ──────────────────────────────────────
 async function loadDashboard() {
-  const tables = ['slides','news','programs','board_members','transparency_files'];
-  const ids    = ['cnt-slides','cnt-news','cnt-programs','cnt-board','cnt-trans'];
+  const tables = ['slides','news','programs','board_members','transparency_files','survey_questions','contact_messages'];
+  const ids    = ['cnt-slides','cnt-news','cnt-programs','cnt-board','cnt-trans','cnt-survey','cnt-messages'];
   for (let i = 0; i < tables.length; i++) {
     const el = document.getElementById(ids[i]);
     if (!el) continue;
@@ -753,6 +808,32 @@ async function loadTransparency() {
           <i class="fas fa-${f.is_active ? 'eye-slash' : 'eye'}"></i>
         </button>
         <button class="btn-sm btn-del" onclick="deleteRow('transparency_files',${f.id},loadTransparency)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// ── SURVEY QUESTIONS ────────────────────────────────
+async function loadSurvey() {
+  const tbody = document.getElementById('surveyTable');
+  const { data, error } = await sb.from('survey_questions').select('*').order('sort_order');
+  if (error && error.code === '42P01') {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">⚠️ جدول الاستبيان غير موجود — اضغط على "تهيئة الجدول" أعلاه</td></tr>';
+    return;
+  }
+  if (!data?.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="5">لا توجد أسئلة بعد</td></tr>'; return; }
+  tbody.innerHTML = data.map((q,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td><strong>${q.question_ar}</strong></td>
+      <td>${q.sort_order}</td>
+      <td><span class="badge ${q.is_active ? 'badge-green' : 'badge-red'}">${q.is_active ? 'مفعّل' : 'مخفي'}</span></td>
+      <td><div class="actions">
+        <button class="btn-sm btn-edit" onclick="openModal('survey',${q.id})"><i class="fas fa-edit"></i> تعديل</button>
+        <button class="btn-sm ${q.is_active ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleActive('survey_questions',${q.id},${q.is_active},loadSurvey)">
+          <i class="fas fa-${q.is_active ? 'eye-slash' : 'eye'}"></i>
+        </button>
+        <button class="btn-sm btn-del" onclick="deleteRow('survey_questions',${q.id},loadSurvey)"><i class="fas fa-trash"></i></button>
       </div></td>
     </tr>
   `).join('');
@@ -978,6 +1059,14 @@ const modalForms = {
     <div class="form-row"><label>ترتيب العرض</label><input id="f-sort_order" type="number" value="${d.sort_order||0}"></div>
   `,
 
+  survey: (d={}) => `
+    <div class="form-row"><label>نص السؤال *</label>
+      <textarea id="f-question_ar" placeholder="أكتب سؤال التقييم..." style="min-height:70px">${d.question_ar||''}</textarea>
+      <div class="form-hint">مثال: كيف تقيم مستوى الخدمات المقدمة؟</div>
+    </div>
+    <div class="form-row"><label>ترتيب العرض</label><input id="f-sort_order" type="number" value="${d.sort_order != null ? d.sort_order : 0}"></div>
+  `,
+
   transparency: (d={}) => `
     <div class="form-row"><label>عنوان الملف *</label><input id="f-title_ar" value="${d.title_ar||''}" required></div>
     <div class="form-row"><label>الوصف</label><textarea id="f-description_ar">${d.description_ar||''}</textarea></div>
@@ -1016,13 +1105,15 @@ const modalForms = {
 const modalTitles = {
   slide:'صورة السلايدر', news:'خبر / فعالية',
   program:'برنامج / مشروع', stat:'إحصائية',
-  board:'عضو مجلس إدارة', transparency:'ملف شفافية'
+  board:'عضو مجلس إدارة', transparency:'ملف حوكمة',
+  survey:'سؤال تقييم'
 };
 
 const tableMap = {
   slide:'slides', news:'news', program:'programs',
   stat:'stats',
-  board:'board_members', transparency:'transparency_files'
+  board:'board_members', transparency:'transparency_files',
+  survey:'survey_questions'
 };
 
 async function openModal(type, id=null) {
@@ -1125,7 +1216,7 @@ function clearUpload(key) {
   const zone    = document.getElementById('up-zone-' + key);
   const preview = document.getElementById('up-preview-' + key);
   const imgEl   = document.getElementById('up-img-' + key);
-  const hidden  = document.getElementById('f-image_url');
+  const hidden  = document.getElementById('f-image_url') || document.getElementById('f-file_url');
 
   imgEl.src             = '';
   hidden.value          = '';
@@ -1145,6 +1236,7 @@ async function saveRow() {
     stat:         () => ({ label_ar: getVal('f-label_ar'), value: +getVal('f-value'), icon: getVal('f-icon') }),
     board:        () => ({ name_ar: getVal('f-name_ar'), role_ar: getVal('f-role_ar'), image_url: getVal('f-image_url') || null, is_president: document.getElementById('f-is_president')?.checked || false, sort_order: +getVal('f-sort_order') }),
     transparency: () => ({ title_ar: getVal('f-title_ar'), description_ar: getVal('f-description_ar'), icon: getVal('f-icon'), file_url: getVal('f-file_url') || null, file_type: getVal('f-file_type'), sort_order: +getVal('f-sort_order') }),
+    survey:       () => ({ question_ar: getVal('f-question_ar'), sort_order: +getVal('f-sort_order') }),
   };
 
   const payload = fieldSets[editingType]();
@@ -1163,7 +1255,7 @@ async function saveRow() {
   toast(editingId ? 'تم التعديل بنجاح ✓' : 'تمت الإضافة بنجاح ✓');
   closeModal();
 
-  const reloaders = { slide: loadSlides, news: loadNews, program: loadPrograms, stat: loadStats, board: loadBoard, transparency: loadTransparency };
+  const reloaders = { slide: loadSlides, news: loadNews, program: loadPrograms, stat: loadStats, board: loadBoard, transparency: loadTransparency, survey: loadSurvey };
   reloaders[editingType]?.();
 }
 
@@ -1190,6 +1282,208 @@ document.querySelectorAll('.nav-item').forEach(btn => {
     if (window.innerWidth <= 900) closeSidebar();
   });
 });
+
+// ── SETUP SURVEY TABLE ─────────────────────────────
+async function setupSurveyTable() {
+  const btn = document.getElementById('setupSurveyBtn');
+  if (btn) { btn.disabled = true; btn.innerHTML = 'جاري الإنشاء...'; }
+
+  // نحاول إدراج سؤال تجريبي لاختبار وجود الجدول
+  const { error } = await sb.from('survey_questions').insert({
+    question_ar: 'سؤال تجريبي', sort_order: 0
+  }).select();
+
+  if (error && error.code === '42P01') {
+    // الجدول غير موجود — نستخدم Supabase Management API عبر SQL raw
+    // نحتاج service_role key لهذا — نعرض رسالة للمستخدم
+    const setupDiv = document.getElementById('surveySetupMsg');
+    if (setupDiv) {
+      setupDiv.innerHTML = `
+        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:20px;margin-bottom:16px">
+          <h4 style="color:var(--gold);font-size:14px;margin-bottom:8px"><i class="fas fa-database"></i> إنشاء جدول الاستبيان</h4>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.8;margin-bottom:12px">
+            يجب إنشاء جدول <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:12px">survey_questions</code> في Supabase أولاً.
+            اذهب إلى <strong>Supabase Dashboard → SQL Editor</strong> وشغّل الأمر التالي:
+          </p>
+          <pre style="background:#1e293b;color:#e2e8f0;padding:16px;border-radius:10px;font-size:12px;direction:ltr;text-align:left;overflow-x:auto;margin-bottom:12px;font-family:monospace">CREATE TABLE survey_questions (
+  id BIGSERIAL PRIMARY KEY,
+  question_ar TEXT NOT NULL,
+  sort_order INTEGER DEFAULT 0,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);</pre>
+          <button class="btn-sm" style="background:var(--gold);color:white;border:none;padding:7px 16px;font-size:12px;border-radius:8px;cursor:pointer" onclick="setupSurveyTable()">
+            <i class="fas fa-sync"></i> التحقق مرة أخرى
+          </button>
+        </div>
+      `;
+    }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-database"></i> تهيئة الجدول'; }
+    return;
+  }
+
+  if (!error) {
+    // حذف السؤال التجريبي
+    await sb.from('survey_questions').delete().eq('question_ar', 'سؤال تجريبي');
+    // إدراج أسئلة افتراضية
+    const defaults = [
+      'كيف تقيم جودة البرامج والخدمات المقدمة؟',
+      'كيف تقيم مستوى التعامل والاحترافية من فريق العمل؟',
+      'كيف تقيم سهولة التواصل مع الجمعية؟',
+      'كيف تقيم مدى استفادتك من البرامج المقدمة؟',
+      'ما مدى رضاك عن الخدمات الإلكترونية للجمعية؟',
+      'هل تنصح الآخرين بالاستفادة من خدمات الجمعية؟',
+    ];
+    for (let i = 0; i < defaults.length; i++) {
+      await sb.from('survey_questions').insert({ question_ar: defaults[i], sort_order: i + 1 });
+    }
+    toast('تم إنشاء جدول الاستبيان وإضافة الأسئلة الافتراضية ✓');
+    loadSurvey();
+  }
+
+  const setupDiv = document.getElementById('surveySetupMsg');
+  if (setupDiv) setupDiv.innerHTML = '';
+  if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-database"></i> تهيئة الجدول'; }
+}
+
+// ── CONTACT MESSAGES ────────────────────────────────
+async function loadMessages() {
+  const tbody = document.getElementById('messagesTable');
+  const { data, error } = await sb.from('contact_messages').select('*').order('created_at', { ascending: false });
+  if (error && error.code === '42P01') {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">⚠️ جدول الرسائل غير موجود — اضغط على "تهيئة الجدول" أعلاه</td></tr>';
+    return;
+  }
+  const countEl = document.getElementById('messagesCount');
+  if (!data?.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="9">لا توجد رسائل بعد</td></tr>';
+    if (countEl) countEl.textContent = '0 رسالة';
+    return;
+  }
+  if (countEl) countEl.textContent = data.length + ' رسالة' + (data.length > 10 ? ' — عرض آخر 10' : '');
+  const show = data.slice(0, 10);
+  tbody.innerHTML = show.map((m, i) => `
+    <tr style="${!m.is_read ? 'background:rgba(14,165,233,.04)' : ''}">
+      <td>${data.length - i}</td>
+      <td><strong>${m.name}</strong></td>
+      <td style="font-size:12px">${m.email || '—'}</td>
+      <td style="font-size:12px;direction:ltr;text-align:right">${m.phone || '—'}</td>
+      <td><span class="badge ${typeBadge(m.message_type)}">${m.message_type}</span></td>
+      <td style="max-width:220px;font-size:12px;color:var(--gray-600);white-space:pre-wrap;word-break:break-word">${m.message.length > 80 ? m.message.substring(0,80)+'…' : m.message}</td>
+      <td style="white-space:nowrap;font-size:12px">${new Date(m.created_at).toLocaleDateString('ar-SA', {year:'numeric',month:'short',day:'numeric'})}</td>
+      <td>${m.is_read
+        ? '<span class="badge badge-green">مقروء</span>'
+        : '<span class="badge" style="background:var(--gold-pale);color:var(--gold);border:1px solid rgba(245,158,11,.2)">جديد</span>'}</td>
+      <td><div class="actions">
+        <button class="btn-sm ${m.is_read ? 'btn-toggle-off' : 'btn-toggle-on'}" onclick="toggleMsgRead(${m.id},${!m.is_read})">
+          <i class="fas fa-${m.is_read ? 'eye-slash' : 'eye'}"></i> ${m.is_read ? 'إلغاء القراءة' : 'تحديد مقروء'}
+        </button>
+        <button class="btn-sm btn-edit" onclick="viewMessage(${m.id})"><i class="fas fa-expand"></i></button>
+        <button class="btn-sm btn-del" onclick="deleteRow('contact_messages',${m.id},loadMessages)"><i class="fas fa-trash"></i></button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function typeBadge(type) {
+  const m = {
+    'شكوى': 'badge-red',
+    'استفسار': 'badge-blue',
+    'اقتراح': 'badge-green',
+    'تواصل': 'badge-green',
+  };
+  return m[type] || 'badge-blue';
+}
+
+async function toggleMsgRead(id, current) {
+  const { error } = await sb.from('contact_messages').update({ is_read: current }).eq('id', id);
+  if (error) { toast('حدث خطأ', 'err'); return; }
+  toast(current ? 'تم التحديد كمقروء' : 'تم إلغاء القراءة');
+  loadMessages();
+}
+
+async function viewMessage(id) {
+  const { data } = await sb.from('contact_messages').select('*').eq('id', id).single();
+  if (!data) return;
+
+  // تحديث كمقروء
+  await sb.from('contact_messages').update({ is_read: true }).eq('id', id);
+
+  document.getElementById('modalBox').innerHTML = `
+    <div class="modal-head">
+      <h3>📬 تفاصيل الرسالة</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="font-size:14px;line-height:1.9">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;background:var(--gray-50);border-radius:10px;padding:16px">
+        <div><strong style="color:var(--gray-400);font-size:12px">الاسم</strong><br>${data.name}</div>
+        <div><strong style="color:var(--gray-400);font-size:12px">النوع</strong><br><span class="badge ${typeBadge(data.message_type)}">${data.message_type}</span></div>
+        <div><strong style="color:var(--gray-400);font-size:12px">البريد</strong><br>${data.email || '—'}</div>
+        <div><strong style="color:var(--gray-400);font-size:12px">الجوال</strong><br>${data.phone || '—'}</div>
+        <div style="grid-column:1/-1"><strong style="color:var(--gray-400);font-size:12px">التاريخ</strong><br>${new Date(data.created_at).toLocaleString('ar-SA')}</div>
+      </div>
+      <div>
+        <strong style="color:var(--gray-400);font-size:12px">الرسالة</strong>
+        <div style="background:white;border:1px solid var(--gray-200);border-radius:10px;padding:16px;margin-top:6px;white-space:pre-wrap;line-height:1.9">${data.message}</div>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn-cancel" onclick="closeModal()">إغلاق</button>
+    </div>
+  `;
+  document.getElementById('modalBg').style.display = 'flex';
+  loadMessages();
+}
+
+async function setupMessagesTable() {
+  const btn = document.getElementById('setupMessagesBtn');
+  if (btn) { btn.disabled = true; btn.innerHTML = 'جاري الإنشاء...'; }
+
+  const { error } = await sb.from('contact_messages').insert({
+    name: 'اختبار', message_type: 'استفسار', message: 'رسالة اختبار'
+  }).select();
+
+  if (error && error.code === '42P01') {
+    const setupDiv = document.getElementById('messagesSetupMsg');
+    if (setupDiv) {
+      setupDiv.innerHTML = `
+        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:20px;margin-bottom:16px">
+          <h4 style="color:var(--gold);font-size:14px;margin-bottom:8px"><i class="fas fa-database"></i> إنشاء جدول الرسائل</h4>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.8;margin-bottom:12px">
+            يجب إنشاء جدول <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:12px">contact_messages</code> في Supabase أولاً.
+            اذهب إلى <strong>Supabase Dashboard → SQL Editor</strong> وشغّل الأمر التالي:
+          </p>
+          <pre style="background:#1e293b;color:#e2e8f0;padding:16px;border-radius:10px;font-size:12px;direction:ltr;text-align:left;overflow-x:auto;margin-bottom:12px;font-family:monospace">CREATE TABLE contact_messages (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT,
+  phone TEXT,
+  message_type TEXT NOT NULL,
+  message TEXT NOT NULL,
+  is_read BOOLEAN DEFAULT false,
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);</pre>
+          <button class="btn-sm" style="background:var(--gold);color:white;border:none;padding:7px 16px;font-size:12px;border-radius:8px;cursor:pointer" onclick="setupMessagesTable()">
+            <i class="fas fa-sync"></i> التحقق مرة أخرى
+          </button>
+        </div>
+      `;
+    }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-database"></i> تهيئة الجدول'; }
+    return;
+  }
+
+  if (!error) {
+    await sb.from('contact_messages').delete().eq('name', 'اختبار');
+    toast('جدول الرسائل جاهز ✓');
+    loadMessages();
+  }
+
+  const setupDiv = document.getElementById('messagesSetupMsg');
+  if (setupDiv) setupDiv.innerHTML = '';
+  if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-database"></i> تهيئة الجدول'; }
+}
 
 // ── INIT ───────────────────────────────────────────
 checkSession();
